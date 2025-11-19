@@ -21,17 +21,17 @@ public class Player_Control : MonoBehaviour
 
     void Update()
     {
-        // aquí cogemos los controles del movimiento
+        // aquï¿½ cogemos los controles del movimiento
         _movLateral = Input.GetAxisRaw("Horizontal");
         _movFrontal = Input.GetAxisRaw("Vertical");
     }
 
     private void FixedUpdate()
     {
-        // aquí damos los valores del movimiento
+        // aquï¿½ damos los valores del movimiento
         Vector3 playerMovement = (transform.right * _movLateral + transform.forward * _movFrontal);
-        Vector3 playerSpeed = new Vector3(playerMovement.x * movSpeed, _rb.velocity.y, playerMovement.z * movSpeed);
-        _rb.velocity = playerSpeed;
+        Vector3 playerSpeed = new Vector3(playerMovement.x * movSpeed, _rb.linearVelocity.y, playerMovement.z * movSpeed);
+        _rb.linearVelocity = playerSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
