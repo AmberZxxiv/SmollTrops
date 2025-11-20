@@ -6,6 +6,7 @@ TagManager:
   tags:
   - portal
   - spawnpoint
+  - roomconection
   layers:
   - Default
   - TransparentFX

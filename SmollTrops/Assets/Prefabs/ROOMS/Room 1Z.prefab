@@ -121,8 +121,8 @@ GameObject:
   - component: {fileID: 4045437505015726117}
   - component: {fileID: 6697621688200020832}
   m_Layer: 0
-  m_Name: SpawnPoint (2)
-  m_TagString: spawnpoint
+  m_Name: RoomConection
+  m_TagString: roomconection
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDirection: 3
+  _RM: {fileID: 0}
 --- !u!65 &4045437505015726117
 BoxCollider:
   m_ObjectHideFlags: 0

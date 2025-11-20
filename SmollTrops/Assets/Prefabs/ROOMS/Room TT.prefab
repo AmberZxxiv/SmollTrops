@@ -121,8 +121,8 @@ GameObject:
   - component: {fileID: 1651705136430883524}
   - component: {fileID: 4698368283089996764}
   m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: spawnpoint
+  m_Name: RoomConection
+  m_TagString: roomconection
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDirection: 1
+  _RM: {fileID: 0}
 --- !u!65 &1651705136430883524
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -324,8 +325,8 @@ GameObject:
   - component: {fileID: 9188815406007388067}
   - component: {fileID: 8741195209923049129}
   m_Layer: 0
-  m_Name: SpawnPoint (1)
-  m_TagString: spawnpoint
+  m_Name: RoomConection(1)
+  m_TagString: roomconection
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,6 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDirection: 2
+  _RM: {fileID: 0}
 --- !u!65 &9188815406007388067
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1115,8 +1117,8 @@ GameObject:
   - component: {fileID: 4931136536874391997}
   - component: {fileID: 7624095104130417869}
   m_Layer: 0
-  m_Name: SpawnPoint (2)
-  m_TagString: spawnpoint
+  m_Name: RoomConection(2)
+  m_TagString: roomconection
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1149,6 +1151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDirection: 3
+  _RM: {fileID: 0}
 --- !u!65 &4931136536874391997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1534,8 +1537,8 @@ GameObject:
   - component: {fileID: 4534095640779576186}
   - component: {fileID: 6291141207522415554}
   m_Layer: 0
-  m_Name: SpawnPoint (3)
-  m_TagString: spawnpoint
+  m_Name: RoomConection(3)
+  m_TagString: roomconection
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1568,6 +1571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDirection: 4
+  _RM: {fileID: 0}
 --- !u!65 &4534095640779576186
 BoxCollider:
   m_ObjectHideFlags: 0

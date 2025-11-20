@@ -2,20 +2,26 @@ using UnityEngine;
 
 public class Room_Manager : MonoBehaviour
 {
+    // Listas donde declaro las salas desde el _ROOM_LIST_ del inspector
     public GameObject[] room1X;
     public GameObject[] room0X;
     public GameObject[] room1Z;
     public GameObject[] room0Z;
+    public GameObject closedRoom;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    // singletonpara llamar a este código desde cualquier otro
+    public static Room_Manager instance;
 
-    // Update is called once per frame
-    void Update()
+    // awake para instanciar singleton sin superponer varios
+    void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -445,8 +445,8 @@ GameObject:
   - component: {fileID: 2108208278704770772}
   - component: {fileID: 6829588408420725261}
   m_Layer: 0
-  m_Name: SpawnPoint (1)
-  m_TagString: spawnpoint
+  m_Name: RoomConection(1)
+  m_TagString: roomconection
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -479,6 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDirection: 2
+  _RM: {fileID: 0}
 --- !u!65 &2108208278704770772
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -972,8 +973,8 @@ GameObject:
   - component: {fileID: 7819627335532785268}
   - component: {fileID: 2830844583564407647}
   m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: spawnpoint
+  m_Name: RoomConection
+  m_TagString: roomconection
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1006,6 +1007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDirection: 1
+  _RM: {fileID: 0}
 --- !u!65 &7819627335532785268
 BoxCollider:
   m_ObjectHideFlags: 0
