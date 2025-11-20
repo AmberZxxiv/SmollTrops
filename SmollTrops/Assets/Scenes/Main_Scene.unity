@@ -612,7 +612,9 @@ MonoBehaviour:
   - {fileID: 1308950172713445409, guid: eb1d5aa0afa42204085e041f770e878d, type: 3}
   - {fileID: 1308950172713445409, guid: 886268f88aa3f5f4eb1426647e3d93e1, type: 3}
   - {fileID: 1904482755648486536, guid: e0c03711d059c7144b911179ccfab460, type: 3}
-  closedRoom: {fileID: 5183480683066195525, guid: daf3dc109205b4847a81af384121f785, type: 3}
+  closedRoom: {fileID: 3563436413696666996, guid: 6853ef6366b19ed4398920051041d6c5, type: 3}
+  roomSpawned: 0
+  maxRooms: 10
 --- !u!4 &1765574036
 Transform:
   m_ObjectHideFlags: 0
@@ -2211,7 +2213,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.50000006, y: 0.49999997, z: 0.49999997, w: 0.5000001}
   m_LocalPosition: {x: 12.5, y: 2, z: 0}
-  m_LocalScale: {x: 7, y: 0.25000003, z: 5.7500005}
+  m_LocalScale: {x: 7, y: 0.1, z: 5.7500005}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8129670349635207104}

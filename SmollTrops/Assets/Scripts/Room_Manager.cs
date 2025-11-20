@@ -9,6 +9,10 @@ public class Room_Manager : MonoBehaviour
     public GameObject[] room0Z;
     public GameObject closedRoom;
 
+    // conteo del tamaño de la dungeon
+    public int roomSpawned = 0;
+    public int maxRooms = 10;
+
     // singletonpara llamar a este código desde cualquier otro
     public static Room_Manager instance;
 
