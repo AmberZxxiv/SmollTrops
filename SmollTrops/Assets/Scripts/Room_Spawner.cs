@@ -16,7 +16,7 @@ public class Room_Spawner : MonoBehaviour
         // pillo el singleton de las listas
         _RM = Room_Manager.instance;
         // SPAWNEO CADA X SEGUNDOS PORQUE PETA
-        Invoke("SpawnRoom", 5);
+        Invoke("SpawnRoom", 2.5f);
         // SPAWNEO CADA X SEGUNDOS PORQUE PETA
 
     }
@@ -25,21 +25,21 @@ public class Room_Spawner : MonoBehaviour
     {
         if (spawned == false)
         {
-            if (doorDirection == 1) //busca sala 1X
+            if (doorDirection == 1) //para puerta en 1X busca puerta en 0X=2
             {
-                Instantiate(_RM.room1X[Random.Range(0, _RM.room1X.Length)], transform.position + Vector3.down*2f, transform.rotation);
+                Instantiate(_RM.room0X[Random.Range(0, _RM.room1X.Length)], transform.position + Vector3.down*2f, transform.rotation);
             }
-            if (doorDirection == 2) //busca sala 0X
+            if (doorDirection == 2) //para puerta en 0X busca puerta en 1X=1
             {
-                Instantiate(_RM.room0X[Random.Range(0, _RM.room0X.Length)], transform.position + Vector3.down * 2f, transform.rotation);
+                Instantiate(_RM.room1X[Random.Range(0, _RM.room0X.Length)], transform.position + Vector3.down * 2f, transform.rotation);
             }
-            if (doorDirection == 3) //busca sala 1Z
+            if (doorDirection == 3) //para puerta en 1Z busca puerta en 0Z=4
             {
-                Instantiate(_RM.room1Z[Random.Range(0, _RM.room1Z.Length)], transform.position + Vector3.down * 2f, transform.rotation);
+                Instantiate(_RM.room0Z[Random.Range(0, _RM.room1Z.Length)], transform.position + Vector3.down * 2f, transform.rotation);
             }
-            if (doorDirection == 4) //busca sala 0Z
+            if (doorDirection == 4) //para puerta en 0Z busca puerta en 1Z=3
             {
-                Instantiate(_RM.room0Z[Random.Range(0, _RM.room0Z.Length)], transform.position + Vector3.down * 2f, transform.rotation);
+                Instantiate(_RM.room1Z[Random.Range(0, _RM.room0Z.Length)], transform.position + Vector3.down * 2f, transform.rotation);
             }
             spawned = true;
         }
