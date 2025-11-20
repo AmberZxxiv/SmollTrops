@@ -21,14 +21,20 @@ public class Player_Control : MonoBehaviour
 
     void Update()
     {
-        // aqu� cogemos los controles del movimiento
+        // aqui cogemos los controles del movimiento
         _movLateral = Input.GetAxisRaw("Horizontal");
         _movFrontal = Input.GetAxisRaw("Vertical");
+        // y rotamos el sprite dependiendo de la direccion
+        if (_movLateral != 0 )
+        {
+        transform.localScale = new Vector3(_movLateral > 0 ? -1 : 1, 1, 1);
+        }
+
     }
 
     private void FixedUpdate()
     {
-        // aqu� damos los valores del movimiento
+        // aqui damos los valores del movimiento
         Vector3 playerMovement = (transform.right * _movLateral + transform.forward * _movFrontal);
         Vector3 playerSpeed = new Vector3(playerMovement.x * movSpeed, _rb.linearVelocity.y, playerMovement.z * movSpeed);
         _rb.linearVelocity = playerSpeed;
