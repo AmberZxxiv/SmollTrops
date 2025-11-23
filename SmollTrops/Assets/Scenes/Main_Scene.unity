@@ -1532,7 +1532,6 @@ GameObject:
   - component: {fileID: 6732656911392547793}
   - component: {fileID: 6732656911392547796}
   - component: {fileID: 6732656911392547795}
-  - component: {fileID: 6732656911392547794}
   m_Layer: 0
   m_Name: PrimeTP
   m_TagString: spawnpoint
@@ -1615,6 +1614,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorDirection: 1
   _RM: {fileID: 0}
+  spawned: 0
+  closed: 0
 --- !u!65 &6384488878963177873
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1776,18 +1777,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8129670349635207104}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6732656911392547794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5340226556887200706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4cdedd7d40d1744be0ed358ac90b84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &6732656911392547795
 BoxCollider:
   m_ObjectHideFlags: 0

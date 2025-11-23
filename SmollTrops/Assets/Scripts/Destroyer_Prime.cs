@@ -2,12 +2,16 @@ using UnityEngine;
 
 public class Destroyer_Prime : MonoBehaviour
 {
-    // asegura no superponer en la primera sala
+    // Controla que solo salgan cerradas si no hay otra
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("roomconection"))
+        var otherSpawner = other.GetComponent<Room_Spawner>();
+
+        // si choca con una sala spawneada, se elimina el cierre
+        if (otherSpawner.spawned)
         {
-            Destroy(other.gameObject);
+            // se destroye el padre del trigger
+            Destroy(transform.parent.gameObject);
         }
     }
 }

@@ -8,7 +8,8 @@ public class Room_Spawner : MonoBehaviour
     // 3 = door en 1Z
     // 4 = door en 0Z
     public Room_Manager _RM; //singleton de las listas
-    private bool spawned = false;
+    public bool spawned = false;
+    public bool closed = false;
     // cortar spawn (NO FUNDIONAN MULTI PUERTAS, generan varias)
 
     void Start()
@@ -23,11 +24,17 @@ public class Room_Spawner : MonoBehaviour
 
     void SpawnRoom()
     {
-        // si tenemos el maximo de salas colocadas, genera una cerrada
+        // si ya ha spawneado, que no lo haga mas
+        if (spawned || closed)
+        {
+            return;
+        }
+
+        // si tenemos el maximo de salas colocadas, se cierre
         if (_RM.roomSpawned >= _RM.maxRooms)
         {
             Instantiate(_RM.closedRoom, transform.position, transform.rotation);
-            spawned = true;
+            closed = true;
             return;
         }
 
@@ -54,23 +61,15 @@ public class Room_Spawner : MonoBehaviour
         }
     }
 
-    // me aseguro que no se generen una encima de otra
     private void OnTriggerEnter(Collider other)
     {
         var otherSpawner = other.GetComponent<Room_Spawner>();
-
-        // si quito esto se rompe con la sala 1
-        if (!other.CompareTag("roomconection"))
-            return;
-
-
-        // Dos spawners chocan antes de generar sala
+        // aqui cojo el objeto con el script (el trigger)
+        // Si intentan spawnear 2 en el mismo lugar, elimino la sala
         if (!spawned && !otherSpawner.spawned)
         {
-            // destruir solo este spawner
+            // destruyo el trigger de conexion antes de que se genere la sala
             Destroy(gameObject);
-            print("hace cosa bien");
-
         }
     }
 }

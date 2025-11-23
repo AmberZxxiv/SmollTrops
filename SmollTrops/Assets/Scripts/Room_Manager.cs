@@ -11,7 +11,7 @@ public class Room_Manager : MonoBehaviour
 
     // conteo del tamaño de la dungeon
     public int roomSpawned = 0;
-    public int maxRooms = 10;
+    public int maxRooms = 11;
 
     // singletonpara llamar a este código desde cualquier otro
     public static Room_Manager instance;
