@@ -22,6 +22,12 @@ public class Room_Spawner : MonoBehaviour
 
     void SpawnRoom()
     {
+        if (_RM.roomSpawned >= _RM.maxRooms)
+        {
+            // si ya se alcanzo el maximo de salas, paro
+            spawned = true;
+            return;
+        }
 
         if (spawned == false)
         {
@@ -50,11 +56,10 @@ public class Room_Spawner : MonoBehaviour
     {
         if (other.CompareTag("spawnroom"))
         {
-            // no entiendo cuando se cumple esto
+            // no entiendo cuando se cumple esto, pero funciona para evitar salas superpuestas
             if (spawned==false && other.GetComponent<Room_Spawner>().spawned==false)
             {
-                Instantiate(_RM.closedRoom, transform.position + Vector3.up *5, transform.rotation);
-                // destruyo el trigger de conexion antes de que se genere la sala
+                // destruyo el trigger antes de que se genere la sala
                 Destroy(gameObject);
             }
             spawned = true;

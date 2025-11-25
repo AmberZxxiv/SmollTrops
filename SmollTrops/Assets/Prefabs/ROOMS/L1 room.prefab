@@ -570,7 +570,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1041,7 +1041,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1062,7 +1062,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnRoom 1Z
   m_TagString: spawnroom
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1144,7 +1144,6 @@ MonoBehaviour:
   openDoorection: 1
   _RM: {fileID: 0}
   spawned: 0
-  closed: 0
 --- !u!1 &7558619997082046284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1159,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnRoom 2X
   m_TagString: spawnroom
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1242,7 +1241,6 @@ MonoBehaviour:
   openDoorection: 2
   _RM: {fileID: 0}
   spawned: 0
-  closed: 0
 --- !u!1 &7831832493641085055
 GameObject:
   m_ObjectHideFlags: 0

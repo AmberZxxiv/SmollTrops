@@ -231,7 +231,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnRoom 2X
   m_TagString: spawnroom
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -313,7 +313,6 @@ MonoBehaviour:
   openDoorection: 2
   _RM: {fileID: 0}
   spawned: 0
-  closed: 0
 --- !u!1 &3569177097863517981
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +760,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnRoom 1Z
   m_TagString: spawnroom
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -843,7 +842,6 @@ MonoBehaviour:
   openDoorection: 1
   _RM: {fileID: 0}
   spawned: 0
-  closed: 0
 --- !u!1 &6775956429728094186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,7 +1257,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnRoom 3z
   m_TagString: spawnroom
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1341,7 +1339,6 @@ MonoBehaviour:
   openDoorection: 3
   _RM: {fileID: 0}
   spawned: 0
-  closed: 0
 --- !u!1 &8682014109163016753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,7 +1354,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnRoom 4x
   m_TagString: spawnroom
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1439,4 +1436,3 @@ MonoBehaviour:
   openDoorection: 4
   _RM: {fileID: 0}
   spawned: 0
-  closed: 0
