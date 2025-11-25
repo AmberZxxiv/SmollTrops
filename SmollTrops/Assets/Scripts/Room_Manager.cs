@@ -3,10 +3,10 @@ using UnityEngine;
 public class Room_Manager : MonoBehaviour
 {
     // Listas donde declaro las salas desde el _ROOM_LIST_ del inspector
-    public GameObject[] room1X;
-    public GameObject[] room0X;
     public GameObject[] room1Z;
-    public GameObject[] room0Z;
+    public GameObject[] room1X;
+    public GameObject[] room0z;
+    public GameObject[] room0x;
     public GameObject closedRoom;
 
     // conteo del tamaño de la dungeon
