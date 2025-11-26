@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 6863556307599919717}
   - component: {fileID: 1852728684244186016}
   m_Layer: 0
-  m_Name: ClosedSpawn 00
+  m_Name: romDestroy 00
   m_TagString: closedspawn
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

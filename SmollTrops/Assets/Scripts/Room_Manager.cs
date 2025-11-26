@@ -10,7 +10,6 @@ public class Room_Manager : MonoBehaviour
     public GameObject[] room0z;
     public GameObject[] room0x;
     public GameObject closedRoom;
-
     // lista control de las salas en el mapa
     public List<GameObject> roomMap;
     public int roomsSpawned = 0;

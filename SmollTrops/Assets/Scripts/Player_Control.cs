@@ -36,15 +36,7 @@ public class Player_Control : MonoBehaviour
     private void FixedUpdate()
     {
         // aqui podría meter un cuarternion para ver si corro o no
-        float currentSpeed;
-        if (Input.GetKey(KeyCode.LeftShift))
-        { 
-            currentSpeed = movSpeed * sprintMulti;
-        }
-        else
-        {
-            currentSpeed = movSpeed;
-        }
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift)? movSpeed * sprintMulti : movSpeed;
         // aqui damos los valores del movimiento
         Vector3 playerMovement = (transform.right * _movLateral + transform.forward * _movFrontal);
         Vector3 playerSpeed = new Vector3(playerMovement.x * currentSpeed, _rb.linearVelocity.y, playerMovement.z * currentSpeed);
