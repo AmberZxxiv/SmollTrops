@@ -6,6 +6,7 @@ TagManager:
   tags:
   - portal
   - spawnroom
+  - closedspawn
   layers:
   - Default
   - TransparentFX
