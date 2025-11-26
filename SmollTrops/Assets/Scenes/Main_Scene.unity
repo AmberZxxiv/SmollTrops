@@ -521,7 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b73458dc0da8c48894e6f017f8ce18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movSpeed: 10
+  movSpeed: 6
+  sprintMulti: 3
   startDungeon: {fileID: 2011392927775435435}
 --- !u!4 &1442705216
 Transform:
@@ -617,8 +618,11 @@ MonoBehaviour:
   - {fileID: 291688737231589834, guid: c75657d4c1aebbf4db21af75276b6808, type: 3}
   - {fileID: 5219714152836207982, guid: 0638991660523c84eae7c39e49cd7b35, type: 3}
   closedRoom: {fileID: 3577886435829724, guid: b368c1e162181a9429130bab8204d8ef, type: 3}
-  roomSpawned: 0
-  maxRooms: 10
+  roomMap: []
+  roomsSpawned: 0
+  maxRooms: 15
+  bossBall: {fileID: 3165311610394700519, guid: 3a662d7f836b84a4e9177828b01b8590, type: 3}
+  minionBos: {fileID: 5334635643054048245, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
 --- !u!4 &1765574036
 Transform:
   m_ObjectHideFlags: 0

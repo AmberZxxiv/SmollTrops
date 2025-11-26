@@ -1449,6 +1449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8986644281808553979}
+  - component: {fileID: -1842821060454407915}
   m_Layer: 0
   m_Name: LX room
   m_TagString: Untagged
@@ -1477,6 +1478,18 @@ Transform:
   - {fileID: 3732546389170692150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1842821060454407915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8062770656219453854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4511188d6be3d6b40b77fe28015b077e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9037205580653325600
 GameObject:
   m_ObjectHideFlags: 0

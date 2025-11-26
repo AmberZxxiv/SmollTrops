@@ -1,7 +1,8 @@
 using UnityEngine;
 
 public class Room_Spawner : MonoBehaviour
-{
+{ // este script está en el trigger RoomSpawner de cada puerta abierta
+
     public int openDoorection;
     // 1 = open in 1Z
     // 2 = open in 1X
@@ -22,9 +23,9 @@ public class Room_Spawner : MonoBehaviour
 
     void SpawnRoom()
     {
-        if (_RM.roomSpawned >= _RM.maxRooms && spawned==false)
+        // al max de salas, se cierra el pasillo
+        if (_RM.roomsSpawned >= _RM.maxRooms && spawned==false)
         {
-            // al max de salas, pero con spawn disponible, pongo una cerrada
             Instantiate(_RM.closedRoom, transform.position + Vector3.up *5, transform.rotation);
             spawned = true;
         }
@@ -47,7 +48,7 @@ public class Room_Spawner : MonoBehaviour
             {
                 Instantiate(_RM.room1X[Random.Range(0, _RM.room1X.Length)], transform.position, transform.rotation);
             }
-            _RM.roomSpawned++;
+            _RM.roomsSpawned++;
             spawned = true;
         }
     }
