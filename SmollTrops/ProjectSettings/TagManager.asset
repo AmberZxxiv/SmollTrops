@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - portal
-  - spawnpoint
-  - roomconection
+  - spawnroom
+  - closedspawn
   layers:
   - Default
   - TransparentFX
