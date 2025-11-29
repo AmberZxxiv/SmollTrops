@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 1120234497}
   m_Layer: 0
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -599,28 +599,41 @@ MonoBehaviour:
   - {fileID: 6639117860086991394, guid: 2ec161b0da993774ab057066fdf8ea3f, type: 3}
   - {fileID: 1779781025203248811, guid: c64b385d8d59aaf4984fa33ed18167d5, type: 3}
   - {fileID: 696994712735635697, guid: 36be649870b711f48b26f6348fc13301, type: 3}
+  - {fileID: 4814146194414391695, guid: e271acdbb4941524ebf9636b220fdb8b, type: 3}
+  - {fileID: 7841869637311297522, guid: beb19b4040ef8f342a96e8d36d4eb3e4, type: 3}
+  - {fileID: 241912390155063803, guid: 64b9d560344082148bf6fa6eac2e5ac2, type: 3}
   room1X:
   - {fileID: 3417280412041936707, guid: 2a5543bf2f09af746bda28b450f3da04, type: 3}
   - {fileID: 5308117466692669261, guid: fd8bfc33eeebde547b4253286fddb0e4, type: 3}
   - {fileID: 6639117860086991394, guid: 2ec161b0da993774ab057066fdf8ea3f, type: 3}
   - {fileID: 1229768979379135081, guid: dae682433edac2f4c9a0218c2b3e273f, type: 3}
   - {fileID: 5292631721909583953, guid: a2cdbb38b6b11d34494eed7065b23ed2, type: 3}
+  - {fileID: 4814146194414391695, guid: e271acdbb4941524ebf9636b220fdb8b, type: 3}
+  - {fileID: 7841869637311297522, guid: beb19b4040ef8f342a96e8d36d4eb3e4, type: 3}
+  - {fileID: 8029438371059929663, guid: ad1bdf335547b8644a7abdd9f2aa13c7, type: 3}
   room0z:
   - {fileID: 1949921924801539117, guid: 447e913773253e748b482d051e06defc, type: 3}
   - {fileID: 5308117466692669261, guid: fd8bfc33eeebde547b4253286fddb0e4, type: 3}
   - {fileID: 6639117860086991394, guid: 2ec161b0da993774ab057066fdf8ea3f, type: 3}
   - {fileID: 1779781025203248811, guid: c64b385d8d59aaf4984fa33ed18167d5, type: 3}
   - {fileID: 1916527564818891276, guid: daa711507990a28468fd33a66dd16530, type: 3}
+  - {fileID: 4814146194414391695, guid: e271acdbb4941524ebf9636b220fdb8b, type: 3}
+  - {fileID: 8029438371059929663, guid: ad1bdf335547b8644a7abdd9f2aa13c7, type: 3}
+  - {fileID: 241912390155063803, guid: 64b9d560344082148bf6fa6eac2e5ac2, type: 3}
   room0x:
   - {fileID: 1949921924801539117, guid: 447e913773253e748b482d051e06defc, type: 3}
   - {fileID: 8896959619505051739, guid: 7d280176e3a107646a24d055f9e054f2, type: 3}
   - {fileID: 6639117860086991394, guid: 2ec161b0da993774ab057066fdf8ea3f, type: 3}
   - {fileID: 1229768979379135081, guid: dae682433edac2f4c9a0218c2b3e273f, type: 3}
   - {fileID: 7809692139467880546, guid: 3b3bb54dc91830a4dbd509e47e636710, type: 3}
+  - {fileID: 7841869637311297522, guid: beb19b4040ef8f342a96e8d36d4eb3e4, type: 3}
+  - {fileID: 8029438371059929663, guid: ad1bdf335547b8644a7abdd9f2aa13c7, type: 3}
+  - {fileID: 241912390155063803, guid: 64b9d560344082148bf6fa6eac2e5ac2, type: 3}
   closedRoom: {fileID: 3577886435829724, guid: b368c1e162181a9429130bab8204d8ef, type: 3}
   roomMap: []
   roomsSpawned: 0
   maxRooms: 15
+  surface: {fileID: 2141270859}
   bossBall: {fileID: 3165311610394700519, guid: 3a662d7f836b84a4e9177828b01b8590, type: 3}
   minionBos: {fileID: 5334635643054048245, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
 --- !u!4 &1765574036
@@ -739,6 +752,70 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2141270858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2141270860}
+  - component: {fileID: 2141270859}
+  m_Layer: 0
+  m_Name: NavMesh Surface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2141270859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141270858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
+--- !u!4 &2141270860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141270858}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &57027920841434461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3078,7 +3155,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4222189467658558704}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
@@ -3093,7 +3170,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_UseGeometry: 0
   m_DefaultArea: 0
-  m_GenerateLinks: 0
+  m_GenerateLinks: 1
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
@@ -3494,6 +3571,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 490035145}
   - {fileID: 705507995}
+  - {fileID: 2141270860}
   - {fileID: 1765574036}
   - {fileID: 1817314115}
   - {fileID: 1442705216}

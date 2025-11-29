@@ -3,7 +3,7 @@ using UnityEngine;
 public class Add_to_Map : MonoBehaviour
 { // este script está en el empty padre de cada sala
 
-    public Room_Manager _RM; //singleton de las listas
+    public Room_Manager _RM; //singleton ROM_MAN
    
     void Start()
     {
