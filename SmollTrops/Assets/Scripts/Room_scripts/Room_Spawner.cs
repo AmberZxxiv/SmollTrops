@@ -53,14 +53,13 @@ public class Room_Spawner : MonoBehaviour
             Debug.LogWarning("Room Direction no asignada en Room_Spawner");
             return;
         }
-        // al max de salas, sala cerrada en altura
         if (_RM.roomsSpawned >= _RM.maxRooms && spawned==false)
-        {
+        { // al max de salas, sala cerrada en altura
             roomToSpawn = _RM.closedRoom;
             roomPos = Vector3.up *5;
         }
-        else // si no, sumo sala spawneda
-        {
+        else
+        {// si no, sumo sala spawneda
             _RM.roomsSpawned++;
         }
         // instancio la selección y apago el spawn
@@ -71,10 +70,14 @@ public class Room_Spawner : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("spawnroom"))
-        {
-            // si dos spawnrooms chocan, se cierra el pasillo y se elimina el spawn
-            if (spawned==false && other.GetComponent<Room_Spawner>().spawned==false)
-            {
+        { // pillo el script del trigger
+            Room_Spawner otherSpawner = other.GetComponent<Room_Spawner>();
+            if (otherSpawner == null)
+            {// si no encuentra el componente, se sale
+                return;
+            }
+            if (spawned==false && otherSpawner.spawned==false)
+            {// si dos spawnrooms chocan, se cierra el pasillo y se elimina el spawn
                 Instantiate(_RM.closedRoom, transform.position + Vector3.up * 5, transform.rotation);
                 Destroy(gameObject);
             }

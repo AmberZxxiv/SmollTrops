@@ -146,5 +146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   attackDistance: 25
-  wanderRadius: 10
-  wanderDelay: 5
+  wanderRadius: 6
+  wanderDelay: 3
+  wanderTimer: 3
