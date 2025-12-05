@@ -6,6 +6,7 @@ public class Room_Spawner : MonoBehaviour
 { // script en trigger RoomSpawner de cada puerta abierta
     // enum para definir la direccion del spawn
     public RoomDirection direction;
+    
     public enum RoomDirection
     { 
         Zplus,
@@ -17,12 +18,17 @@ public class Room_Spawner : MonoBehaviour
     public Room_Manager _RM; //singleton de las listas
     public bool spawned = false;
 
+    // SPAWNEO CADA X SEGUNDOS PORQUE PETA
+    [Range(0.1f, 0.9f)]
+    public float spawnTime = 0.2f;
+    // SPAWNEO CADA X SEGUNDOS PORQUE PETA
+
     void Start()
     {
         // pillo el singleton del ROOM_MAN
         _RM = Room_Manager.instance;
         // SPAWNEO CADA X SEGUNDOS PORQUE PETA
-        Invoke("SpawnRoom", 0.5f);
+        Invoke("SpawnRoom", spawnTime);
         // SPAWNEO CADA X SEGUNDOS PORQUE PETA
 
     }
