@@ -20,4 +20,12 @@ public class Weapon_Control : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0)&&(other.gameObject.CompareTag("enemy")))
+        {
+           //esto no va asi lelo y lo sabes jaja
+        }
+    }
 }

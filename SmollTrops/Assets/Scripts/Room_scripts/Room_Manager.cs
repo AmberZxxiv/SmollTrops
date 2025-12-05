@@ -39,8 +39,8 @@ public class Room_Manager : MonoBehaviour
 
     private void Start()
     {
-        Invoke("SpawnEnemy", 5f);
-        Invoke("BakeNavMesh", 4f);
+        Invoke("BakeNavMesh", 2f); //timer bake navmesh
+        Invoke("SpawnEnemy", 2.5f); //timer spawn de enemigos
     }
 
     void BakeNavMesh() 

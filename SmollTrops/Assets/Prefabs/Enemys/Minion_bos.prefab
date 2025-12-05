@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5690484243768222843}
   m_Layer: 0
   m_Name: Minion_bos
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,8 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c42c6af99ce10884cb1aca8ddaeb3ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _PC: {fileID: 0}
   target: {fileID: 0}
   attackDistance: 25
   wanderRadius: 6
   wanderDelay: 3
   wanderTimer: 3
+  health: 4

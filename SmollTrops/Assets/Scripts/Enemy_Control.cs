@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class Enemy_Control : MonoBehaviour
 {
+    public Player_Control _PC; //singleton del player
     private NavMeshAgent agent; //componente propio
     public Transform target; //objetivo al que ir
     public float attackDistance; //agro 
@@ -11,8 +12,12 @@ public class Enemy_Control : MonoBehaviour
     public float wanderDelay; //cada cuanto se mueve
     public float wanderTimer; //contador interno
 
+    public float health;
+
     void Start()
     {
+        // pillo el singleton del Player. PUEDO PILLAR EL TAG DE AQUI?
+        _PC = Player_Control.instance;
         agent = GetComponent<NavMeshAgent>(); //pillo el componente propio
         //busco el tag del player en escena y se lo doy al objetivo
         GameObject player = GameObject.FindGameObjectWithTag("Player"); 
@@ -57,6 +62,14 @@ public class Enemy_Control : MonoBehaviour
             return origin;
         }
         return navHit.position;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+           _PC.health -= 2;
+        }
     }
 }
 
