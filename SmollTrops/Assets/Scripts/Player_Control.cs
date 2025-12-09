@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player_Control : MonoBehaviour
 {// script en el empty padre del PLAYER
+
     #region /// PLAYER MOVEMENT ///
     Rigidbody _rb;
     public float movSpeed;
@@ -13,7 +14,6 @@ public class Player_Control : MonoBehaviour
     #endregion
 
     public float health;
-    public GameObject gameOver;
     public GameObject startDungeon;
 
     // singletonpara llamar a este código desde cualquier otro
@@ -33,7 +33,6 @@ public class Player_Control : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1;
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -46,12 +45,6 @@ public class Player_Control : MonoBehaviour
         if (_movLateral != 0 )
         {
         transform.localScale = new Vector3(_movLateral > 0 ? -1 : 1, 1, 1);
-        }
-
-        if (health <= 0)
-        {
-            Time.timeScale = 0;
-            gameOver.SetActive(true);
         }
     }
 

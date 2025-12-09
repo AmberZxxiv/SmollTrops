@@ -18,15 +18,15 @@ public class Room_Manager : MonoBehaviour
     public NavMeshSurface surface;
 
     public GameObject bossBall;
-    public GameObject minionBos;
+    public GameObject minionBall;
     public int minionCount = 3;
 
     // singletonpara llamar a este código desde cualquier otro
     public static Room_Manager instance;
 
-    // awake para instanciar singleton sin superponer varios
+    
     void Awake()
-    {
+    { // awake para instanciar singleton sin superponer varios
         if (instance == null)
         {
             instance = this;
@@ -64,7 +64,7 @@ public class Room_Manager : MonoBehaviour
                 (Mathf.Cos(angle * Mathf.Deg2Rad), 0,
                  Mathf.Sin(angle * Mathf.Deg2Rad)) * radio;
 
-                Instantiate(minionBos, center + offset, transform.rotation);
+                Instantiate(minionBall, center + offset, transform.rotation);
 
             }
         }

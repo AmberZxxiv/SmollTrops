@@ -6,7 +6,7 @@ public class Enemy_Control : MonoBehaviour
     public Player_Control _PC; //singleton del player
     private NavMeshAgent agent; //componente propio
     public Transform target; //objetivo al que ir
-    public float attackDistance; //agro 
+    public float agroDistance; //agro 
     private float targetDistance; //comprobacion
     public float wanderRadius; //zona de patrulla
     public float wanderDelay; //cada cuanto se mueve
@@ -18,10 +18,10 @@ public class Enemy_Control : MonoBehaviour
     {
         // pillo el singleton del Player. PUEDO PILLAR EL TAG DE AQUI?
         _PC = Player_Control.instance;
-        agent = GetComponent<NavMeshAgent>(); //pillo el componente propio
         //busco el tag del player en escena y se lo doy al objetivo
         GameObject player = GameObject.FindGameObjectWithTag("Player"); 
         target = player.transform;
+        agent = GetComponent<NavMeshAgent>(); //pillo el componente propio
     }
 
     void Update()
@@ -29,7 +29,7 @@ public class Enemy_Control : MonoBehaviour
         //compruebo la distancia con el player, pillo el agro o sigo patrullando
         // aquí puedo poner un ternario de estos? con el target?
         targetDistance = Vector3.Distance(agent.transform.position, target.position);
-        if (targetDistance <= attackDistance)
+        if (targetDistance <= agroDistance)
         {
             agent.SetDestination(target.position);
         }
