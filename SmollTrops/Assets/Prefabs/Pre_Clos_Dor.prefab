@@ -9,12 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4d006563bb602c943a4db9af18c2340f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d006563bb602c943a4db9af18c2340f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4d006563bb602c943a4db9af18c2340f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4d006563bb602c943a4db9af18c2340f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -54,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 66141cbe1b1624d48a2ec8c90712bff9, type: 2}
     - target: {fileID: 919132149155446097, guid: 4d006563bb602c943a4db9af18c2340f, type: 3}
       propertyPath: m_Name
-      value: Forest Closed_UNI
+      value: Pre_Clos_Dor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
