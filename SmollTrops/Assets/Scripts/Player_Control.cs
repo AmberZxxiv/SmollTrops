@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player_Control : MonoBehaviour
 {// script en el empty padre del PLAYER
+ // singleton para llamar a este código desde cualquier otro
+    public static Player_Control instance;
 
     #region /// PLAYER MOVEMENT ///
     Rigidbody _rb;
@@ -15,10 +17,8 @@ public class Player_Control : MonoBehaviour
 
     public float health;
     public GameObject startDungeon;
+    public Weapon_Control _WC; //singleton del weapon controler
 
-    // singletonpara llamar a este código desde cualquier otro
-    public static Player_Control instance;
-    
     void Awake()
     {// awake para instanciar singleton sin superponer varios
         if (instance == null)
@@ -33,6 +33,7 @@ public class Player_Control : MonoBehaviour
 
     void Start()
     {
+        _WC = Weapon_Control.instance; // pillo singleton de weapon control
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -63,6 +64,13 @@ public class Player_Control : MonoBehaviour
         if (other.CompareTag("portal"))
         {
             transform.position = startDungeon.transform.position;
+        }
+
+        Power_Giver power = other.GetComponent<Power_Giver>();
+        if (power != null)
+        {
+            _WC.WeaponUp(power.newWeapon);
+            Destroy(other.gameObject);
         }
     }
 }

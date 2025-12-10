@@ -3,7 +3,9 @@ using Unity.AI.Navigation;
 using System.Collections.Generic;
 
 public class Room_Manager : MonoBehaviour
-{ // este script está en el empty ROM_MAN del inspector
+{// esto está en el empty ROM_MAN del inspector
+ // singleton para llamar a este código desde cualquier otro
+    public static Room_Manager instance;
 
     // Listas donde declaro las salas desde el _ROOM_MAN_ del inspector
     public GameObject[] room1Z;
@@ -22,11 +24,8 @@ public class Room_Manager : MonoBehaviour
     public int minionCount = 3;
     // gestion de powers
     public List<GameObject> powerHands;
+    public List<GameObject> powerSpawns; 
 
-    // singletonpara llamar a este código desde cualquier otro
-    public static Room_Manager instance;
-
-    
     void Awake()
     { // awake para instanciar singleton sin superponer varios
         if (instance == null)
@@ -41,8 +40,23 @@ public class Room_Manager : MonoBehaviour
 
     private void Start()
     {
+        SpawnPowerHands(); // spawnea las power hands
         Invoke("BakeNavMesh", 2f); //timer bake navmesh
         Invoke("SpawnEnemy", 2.5f); //timer spawn de enemigos
+    }
+
+    void SpawnPowerHands()
+    {
+        List<GameObject> availablePower = new List<GameObject>(powerHands);
+        foreach (GameObject spawn in powerSpawns)
+        {
+            if (availablePower.Count == 0) break;
+
+            int randPow = Random.Range(0, availablePower.Count);
+            GameObject prefab = availablePower[randPow];
+            Instantiate(prefab, spawn.transform.position, prefab.transform.rotation);
+            availablePower.RemoveAt(randPow);
+        }
     }
 
     void BakeNavMesh() 
