@@ -8,6 +8,10 @@ TagManager:
   - spawnroom
   - closedspawn
   - enemy
+  - powShot
+  - powPunch
+  - powMagic
+  - PowKick
   layers:
   - Default
   - TransparentFX

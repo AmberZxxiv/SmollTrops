@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Room_Manager : MonoBehaviour
 { // este script está en el empty ROM_MAN del inspector
 
-    // Listas donde declaro las salas desde el _ROOM_LIST_ del inspector
+    // Listas donde declaro las salas desde el _ROOM_MAN_ del inspector
     public GameObject[] room1Z;
     public GameObject[] room1X;
     public GameObject[] room0z;
@@ -16,10 +16,12 @@ public class Room_Manager : MonoBehaviour
     public int roomsSpawned = 0;
     public int maxRooms = 15;
     public NavMeshSurface surface;
-
+    // gestion de enemigos
     public GameObject bossBall;
     public GameObject minionBall;
     public int minionCount = 3;
+    // gestion de powers
+    public List<GameObject> powerHands;
 
     // singletonpara llamar a este código desde cualquier otro
     public static Room_Manager instance;
