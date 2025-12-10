@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menus_Control : MonoBehaviour
-{ // este script está en el canvas de la main
+{ // esto está en el canvas de cada escena
 
     public GameObject deadMenu;
     public GameObject pauseMenu;

@@ -8,6 +8,7 @@ TagManager:
   - spawnroom
   - closedspawn
   - enemy
+  - power
   layers:
   - Default
   - TransparentFX

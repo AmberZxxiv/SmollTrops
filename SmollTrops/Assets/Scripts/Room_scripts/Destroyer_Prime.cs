@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class Destroyer_Prime : MonoBehaviour
-{ // este script está en el trigger Spawn 00 de cada sala
+{ // esto está en el trigger Spawn 00 de cada sala
 
     private void OnTriggerEnter(Collider other)
     {
