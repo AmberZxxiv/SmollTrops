@@ -16,12 +16,14 @@ public class Weapon_Control : MonoBehaviour
         Magic
     }
 
-    // UI marcador
+    #region /// UI MARKERS ///
     public GameObject uiPower;
     public GameObject kickPow;
     public GameObject punchPow;
     public GameObject shotPow;
     public GameObject magicPow;
+    #endregion
+
     // variables de mele
     public Transform attackOrigin;
     public float meleRange;
@@ -31,9 +33,11 @@ public class Weapon_Control : MonoBehaviour
     public GameObject magicPref;
     public float rangedForce;
     public float rangedDamage;
-    // control de cooldown
+
+    #region /// COOLDOWN CONTROL ///
     public float attackCooldown;
     public float lastAttackTimer;
+    #endregion
 
     void Awake()
     {// awake para instanciar singleton sin superponer varios
@@ -41,10 +45,7 @@ public class Weapon_Control : MonoBehaviour
         {
             instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        else Destroy(gameObject);
     }
 
     void Start()
@@ -76,8 +77,7 @@ public class Weapon_Control : MonoBehaviour
         GameObject iconToInstantiate = null;
         switch (newWeapon)
         {
-           case WeaponType.None:
-                return;
+           case WeaponType.None: return;
            case WeaponType.Kick:
                 iconToInstantiate = kickPow;
                 break;
@@ -96,29 +96,45 @@ public class Weapon_Control : MonoBehaviour
 
     void AttackFunction()
     {
-        // creo que no funciona el contador del cooldown
-        lastAttackTimer = Time.time;
+        // controlo el cooldown
         if (Time.time < lastAttackTimer + attackCooldown) return;
+        lastAttackTimer = Time.time;
         // activo el ataque correspondiente al weapon equipado
         switch (weapon)
         {
-        case WeaponType.None:
-             return;
-        case WeaponType.Kick:
-                   DoKick(); break;
-        case WeaponType.Punch:
-                   DoPunch(); break;
-        case WeaponType.Shot:
-                   DoShot(); break;
-        case WeaponType.Magic:
-                   DoMagic(); break;
+        case WeaponType.None: return;
+        case WeaponType.Kick: DoKick(); break;
+        case WeaponType.Punch:DoPunch();break;
+        case WeaponType.Shot: DoShot(); break;
+        case WeaponType.Magic:DoMagic();break;
         }
     }
 
     void DoKick()
-    {
+    { // NO GIRA EL ATAQUE DELANTE DEL PLAYER es por el right y el direction?
         print("KICKED");
+        float direction = Mathf.Sign(transform.localScale.x);
+        Vector3 attackFocus = attackOrigin.position + transform.right * meleRange * 1.2f * direction;
+        Collider[] hits =
+        Physics.OverlapSphere(attackFocus, meleRange);
+        foreach (Collider hit in hits)
+        {
+            if (hit.CompareTag("enemy"))
+            {
+                hit.GetComponent<Enemy_Control>()?.TakeDamage(meleDamage);
+                hit.GetComponent<Rigidbody>()
+                    .AddForce(transform.forward * 10f * direction, ForceMode.Impulse);
+            }
+        }
     }
+    private void OnDrawGizmosSelected()
+    {
+        float direction = Mathf.Sign(transform.localScale.x);
+        Vector3 attackFocus = attackOrigin.position + transform.right * meleRange * 1.2f * direction;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(attackFocus, meleRange);
+    }
+
     void DoPunch()
     {
         print("PUNCHED");

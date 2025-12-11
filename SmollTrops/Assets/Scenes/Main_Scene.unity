@@ -1917,7 +1917,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 5
+  near clip plane: 6
   far clip plane: 1000
   field of view: 67
   orthographic: 0
@@ -2195,13 +2195,13 @@ MonoBehaviour:
   shotPow: {fileID: 5857481253972021794, guid: 1f6d7f7b39d6e6c40a361663a3808849, type: 3}
   magicPow: {fileID: 5857481253972021794, guid: b747a7117fae59745a374661782ec985, type: 3}
   attackOrigin: {fileID: 0}
-  meleRange: 0
-  meleDamage: 0
-  shotPref: {fileID: 0}
-  magicPref: {fileID: 0}
-  rangedForce: 0
-  rangedDamage: 0
-  attackCooldown: 0
+  meleRange: 5
+  meleDamage: 2
+  shotPref: {fileID: 277156950887219106, guid: bdd0ef7152a37f749a81a03e522b0593, type: 3}
+  magicPref: {fileID: 4424006084866504917, guid: cfa706704071a4d46a378e08448a586f, type: 3}
+  rangedForce: 10
+  rangedDamage: 2
+  attackCooldown: 0.5
   lastAttackTimer: 0
 --- !u!4 &1166085559 stripped
 Transform:
@@ -2620,7 +2620,7 @@ Transform:
   m_GameObject: {fileID: 1442705212}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 1000, y: 0, z: -14}
+  m_LocalPosition: {x: 1000, y: 1, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

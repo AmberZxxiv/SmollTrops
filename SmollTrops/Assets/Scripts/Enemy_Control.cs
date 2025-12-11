@@ -14,7 +14,7 @@ public class Enemy_Control : MonoBehaviour
     public float wanderDelay; //cada cuanto se mueve
     public float wanderTimer; //contador interno
 
-    public float health;
+    public float health; // vida de cada enemigo
 
     void Start()
     {
@@ -26,8 +26,7 @@ public class Enemy_Control : MonoBehaviour
 
     void Update()
     {
-        //compruebo la distancia con el player, pillo el agro o sigo patrullando
-        // aquí puedo poner un ternario de estos? con el target?
+        //compruebo distancia con player para agro o patrulla ¿TERNARIO?
         targetDistance = Vector3.Distance(agent.transform.position, target.position);
         if (targetDistance <= agroDistance)
         {
@@ -64,6 +63,16 @@ public class Enemy_Control : MonoBehaviour
         { // daño al PLAYER
            _PC.health -= 2;
            _PC.StartCoroutine(_PC.FlashDamage());
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        print("HITED: " + health);
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
