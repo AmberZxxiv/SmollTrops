@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Player_Control : MonoBehaviour
 {// script en el empty padre del PLAYER
- // singleton para llamar a este código desde cualquier otro
+ // SINGLETON script
     public static Player_Control instance;
+ // SINGLETON script
+    public Weapon_Control _WC; //pillo SINGLE del WC
 
     #region /// PLAYER MOVEMENT ///
     Rigidbody _rb;
@@ -15,9 +17,14 @@ public class Player_Control : MonoBehaviour
     float _movFrontal;
     #endregion
 
-    public float health;
-    public GameObject startDungeon;
-    public Weapon_Control _WC; //singleton del weapon controler
+    public GameObject startDungeon;//tp a la sala principal
+
+    #region /// HEALTH STATUS ///
+    public float health; //vida del player
+    public SpriteRenderer spriteRenderer; //render del sprite
+    private Color originalColor;
+    #endregion
+
 
     void Awake()
     {// awake para instanciar singleton sin superponer varios
@@ -33,8 +40,9 @@ public class Player_Control : MonoBehaviour
 
     void Start()
     {
-        _WC = Weapon_Control.instance; // pillo singleton de weapon control
+        _WC = Weapon_Control.instance; //pillo SINGLE del WC
         _rb = GetComponent<Rigidbody>();
+        originalColor = spriteRenderer.color;
     }
 
     void Update()
@@ -69,8 +77,15 @@ public class Player_Control : MonoBehaviour
         Power_Giver power = other.GetComponent<Power_Giver>();
         if (power != null)
         {
-            _WC.WeaponUp(power.newWeapon);
+            _WC.EquipWeapon(power.newWeapon);
             Destroy(other.gameObject);
         }
+    }
+
+    public IEnumerator FlashDamage()//lo llaman los enemigos al hitearme
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(1f);
+        spriteRenderer.color = originalColor;
     }
 }

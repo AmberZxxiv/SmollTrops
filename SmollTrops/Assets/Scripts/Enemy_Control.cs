@@ -2,9 +2,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy_Control : MonoBehaviour
-{
-    public Player_Control _PC; //singleton del player
-    private NavMeshAgent agent; //componente propio
+{// script en cada enemigo
+ //pillo SINGLE del PC
+   public Player_Control _PC; 
+
+    private NavMeshAgent agent; //IA propia
     public Transform target; //objetivo al que ir
     public float agroDistance; //agro 
     private float targetDistance; //comprobacion
@@ -16,12 +18,10 @@ public class Enemy_Control : MonoBehaviour
 
     void Start()
     {
-        // pillo el singleton del Player. PUEDO PILLAR EL TAG DE AQUI?
-        _PC = Player_Control.instance;
-        //busco el tag del player en escena y se lo doy al objetivo
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); 
-        target = player.transform;
-        agent = GetComponent<NavMeshAgent>(); //pillo el componente propio
+        //pillo SINGLE del PC
+        _PC = Player_Control.instance; 
+        target = _PC.transform; // le doy el transform del PC como target
+        agent = GetComponent<NavMeshAgent>(); //pillo IA propia
     }
 
     void Update()
@@ -33,10 +33,7 @@ public class Enemy_Control : MonoBehaviour
         {
             agent.SetDestination(target.position);
         }
-        else
-        {
-            Wander();
-        }
+        else Wander();
     }
 
     void Wander()
@@ -57,18 +54,16 @@ public class Enemy_Control : MonoBehaviour
         randDirection += origin;
         NavMeshHit navHit;
         bool found = NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
-        if (!found)
-        {
-            return origin;
-        }
-        return navHit.position;
+        if (!found) return origin;
+        else return navHit.position;
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
-        {
+        { // daño al PLAYER
            _PC.health -= 2;
+           _PC.StartCoroutine(_PC.FlashDamage());
         }
     }
 }

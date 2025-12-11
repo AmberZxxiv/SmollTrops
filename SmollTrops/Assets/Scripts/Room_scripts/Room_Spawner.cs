@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Room_Spawner : MonoBehaviour
 { // script en trigger RoomSpawner de cada puerta abierta
+  //pillo SINGLE del RM   
+    public Room_Manager _RM;
+
     // enum para definir la direccion del spawn
     public RoomDirection direction;
-    
     public enum RoomDirection
     { 
         Zplus,
@@ -15,17 +17,15 @@ public class Room_Spawner : MonoBehaviour
         Xminus
     }
 
-    public Room_Manager _RM; //singleton de las listas
-    public bool spawned = false;
-
     // SPAWNEO CADA X SEGUNDOS PORQUE PETA
     [Range(0.1f, 0.9f)]
     public float spawnTime = 0.2f;
     // SPAWNEO CADA X SEGUNDOS PORQUE PETA
+    public bool spawned = false;
 
     void Start()
     {
-        // pillo el singleton del ROOM_MAN
+        //pillo SINGLE del RM
         _RM = Room_Manager.instance;
         // SPAWNEO CADA X SEGUNDOS PORQUE PETA
         Invoke("SpawnRoom", spawnTime);
@@ -35,29 +35,29 @@ public class Room_Spawner : MonoBehaviour
 
     void SpawnRoom()
     {
-        GameObject roomToSpawn = null; // declaro la sala que va a ser
-        Vector3 roomPos = Vector3.zero; // declaro la posición de referencia
+        GameObject roomToSpawn = null; //declaro la sala variable
+        Vector3 roomPos = Vector3.zero; //declaro la posición de referencia
         switch (direction) // segun el estado del enum RoomDirection
         {
-            case RoomDirection.Zplus:// para 1Z need 0z
+           case RoomDirection.Zplus:// para 1Z need 0z
                 roomToSpawn = _RM.room0z[Random.Range(0, _RM.room0z.Length)];
-            break;
+           break;
 
-            case RoomDirection.Xplus:// para 1X need 0x
+           case RoomDirection.Xplus:// para 1X need 0x
                 roomToSpawn = _RM.room0x[Random.Range(0, _RM.room0x.Length)];
-            break;
+           break;
             
-            case RoomDirection.Zminus:// para 0z need 1Z
+           case RoomDirection.Zminus:// para 0z need 1Z
                 roomToSpawn = _RM.room1Z[Random.Range(0, _RM.room1Z.Length)];
-            break;
+           break;
         
-            case RoomDirection.Xminus:// para 0x need 1X
+           case RoomDirection.Xminus:// para 0x need 1X
                 roomToSpawn = _RM.room1X[Random.Range(0, _RM.room1X.Length)];
-            break;
+           break;
 
-            default: // si no encuentra estado asignado, detiene el SCRIPT
-            Debug.LogWarning("Room Direction no asignada en Room_Spawner");
-            return;
+           default: // si no encuentra estado asignado, detiene el SCRIPT
+           Debug.LogWarning("Room Direction no asignada en Room_Spawner");
+           return;
         }
         if (_RM.roomsSpawned >= _RM.maxRooms && spawned==false)
         { // al max de salas, sala cerrada en altura
@@ -65,7 +65,7 @@ public class Room_Spawner : MonoBehaviour
             roomPos = Vector3.up *5;
         }
         else
-        {// si no, sumo sala spawneda
+        {// de base, sumo las salas spawneadas
             _RM.roomsSpawned++;
         }
         // instancio la selección y apago el spawn
