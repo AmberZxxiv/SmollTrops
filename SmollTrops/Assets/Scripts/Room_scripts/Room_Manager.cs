@@ -3,9 +3,10 @@ using Unity.AI.Navigation;
 using System.Collections.Generic;
 
 public class Room_Manager : MonoBehaviour
-{// esto está en el empty ROM_MAN del inspector
- // singleton para llamar a este código desde cualquier otro
+{// script en el empty ROM_MAN del inspector
+ // SINGLETON script
     public static Room_Manager instance;
+ // SINGLETON script
 
     // Listas donde declaro las salas desde el _ROOM_MAN_ del inspector
     public GameObject[] room1Z;
@@ -40,12 +41,12 @@ public class Room_Manager : MonoBehaviour
 
     private void Start()
     {
-        SpawnPowerHands(); // spawnea las power hands
+        SpawnPowerUPs(); // spawnea las powerUPs
         Invoke("BakeNavMesh", 2f); //timer bake navmesh
         Invoke("SpawnEnemy", 2.5f); //timer spawn de enemigos
     }
 
-    void SpawnPowerHands()
+    void SpawnPowerUPs()// busco un pow random no repetido de la lista y se lo doy a cada spawner
     {
         List<GameObject> availablePower = new List<GameObject>(powerHands);
         foreach (GameObject spawn in powerSpawns)
@@ -59,31 +60,29 @@ public class Room_Manager : MonoBehaviour
         }
     }
 
-    void BakeNavMesh() 
+    void BakeNavMesh()//bakea el NavMeshSurface de la escena cuando esta completa
     { 
         surface.BuildNavMesh(); 
     }
 
     void SpawnEnemy()
     {
+        //el Boss aparece en la ultima sala de la lista
         Instantiate(bossBall, roomMap[roomMap.Count-1].transform.position + Vector3.up * 5, transform.rotation);
 
+        // en todas menos la ultima, aparecen minions
         float radio = 1.5f;
         for(int i = 0; i < roomMap.Count-1; i++)
         {
            Vector3 center = roomMap[i].transform.position + Vector3.up * 2.5f;
-       
             for (int m = 0; m < minionCount; m++)
             {
                float angle = (360f / minionCount) * m;
                 Vector3 offset = new Vector3
                 (Mathf.Cos(angle * Mathf.Deg2Rad), 0,
                  Mathf.Sin(angle * Mathf.Deg2Rad)) * radio;
-
                 Instantiate(minionBall, center + offset, transform.rotation);
-
             }
         }
-
     }
 }

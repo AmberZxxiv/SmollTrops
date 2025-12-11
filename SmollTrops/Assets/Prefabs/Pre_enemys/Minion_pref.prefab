@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PC: {fileID: 0}
   target: {fileID: 0}
-  agroDistance: 15
+  agroDistance: 17
   wanderRadius: 6
   wanderDelay: 2
   wanderTimer: 2
