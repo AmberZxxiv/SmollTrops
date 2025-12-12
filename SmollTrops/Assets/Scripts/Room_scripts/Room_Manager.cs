@@ -29,10 +29,7 @@ public class Room_Manager : MonoBehaviour
 
     void Awake()
     { // awake para instanciar singleton sin superponer varios
-        if (instance == null)
-        {
-            instance = this;
-        }
+        if (instance == null) instance = this;
         else Destroy(gameObject);
     }
 
