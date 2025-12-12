@@ -111,28 +111,59 @@ public class Weapon_Control : MonoBehaviour
     }
 
     void DoKick()
-    { // NO GIRA EL ATAQUE DELANTE DEL PLAYER es por el right y el direction?
-        print("KICKED");
-        float direction = Mathf.Sign(transform.localScale.x);
-        Vector3 attackFocus = attackOrigin.position + transform.right * meleRange * 1.2f * direction;
-        Collider[] hits =
-        Physics.OverlapSphere(attackFocus, meleRange);
+    {
+        // ray desde cam al plano del origen del ataque
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, new Vector3(0, attackOrigin.position.y, 0));
+        if (!plane.Raycast(ray, out float enter)) return;
+        Vector3 mouseWorld = ray.GetPoint(enter);
+
+        // dirección desde origen hacia posición del ratón
+        Vector3 dir = mouseWorld - attackOrigin.position;
+        dir.y = 0; dir.Normalize();
+
+        // marco limites del rectangulo en anchura, altura y largura
+        Vector3 halfExtents = new Vector3(1.2f, 1.2f, meleRange);
+        // marco centro a mitad de la longitud hacia delante
+        Vector3 attackCenter = attackOrigin.position + dir * meleRange;
+        attackCenter.y = 0;
+        // marco rotacion del box que apunte a dir
+        Quaternion attackRot = Quaternion.LookRotation(dir, Vector3.up);
+        // genero el collider con todos los datos e impacto
+        Collider[] hits = Physics.OverlapBox(attackCenter, halfExtents, attackRot);
         foreach (Collider hit in hits)
         {
             if (hit.CompareTag("enemy"))
             {
-                hit.GetComponent<Enemy_Control>()?.TakeDamage(meleDamage);
-                hit.GetComponent<Rigidbody>()
-                    .AddForce(transform.forward * 10f * direction, ForceMode.Impulse);
+                print("KICKED!");
+                hit.GetComponent<Enemy_Control>().TakeDamage(meleDamage);
+                Vector3 forceDir = dir;
+                forceDir.y = 0.3f; // push pa arriba
+                forceDir.Normalize();
+                hit.GetComponent<Rigidbody>().AddForce(dir * 25f, ForceMode.Impulse);
             }
         }
     }
-    private void OnDrawGizmosSelected()
+
+    private void OnDrawGizmos()
     {
-        float direction = Mathf.Sign(transform.localScale.x);
-        Vector3 attackFocus = attackOrigin.position + transform.right * meleRange * 1.2f * direction;
+        if (attackOrigin == null) return;
+
+        // mismo cálculo para dibujar la zona en el viewer
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, new Vector3(0, attackOrigin.position.y, 0));
+        if (!plane.Raycast(ray, out float enter)) return;
+        Vector3 mouseWorld = ray.GetPoint(enter);
+        Vector3 dir = mouseWorld - attackOrigin.position;
+        dir.y = 0; dir.Normalize();
+        Vector3 halfExtents = new Vector3(1.2f, 1.2f, meleRange);
+        Vector3 attackCenter = attackOrigin.position + dir * meleRange;
+        attackCenter.y = 0;
+        Quaternion attackRot = Quaternion.LookRotation(dir, Vector3.up);
+
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(attackFocus, meleRange);
+        Gizmos.matrix = Matrix4x4.TRS(attackCenter, attackRot, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, halfExtents * 2f);
     }
 
     void DoPunch()

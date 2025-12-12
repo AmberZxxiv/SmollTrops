@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +17,8 @@ public class Enemy_Control : MonoBehaviour
     public float wanderTimer; //contador interno
 
     public float health; // vida de cada enemigo
+    public MeshRenderer meshRenderer; //render del material
+    private Color originalColor;
 
     void Start()
     {
@@ -22,6 +26,9 @@ public class Enemy_Control : MonoBehaviour
         _PC = Player_Control.instance; 
         target = _PC.transform; // le doy el transform del PC como target
         agent = GetComponent<NavMeshAgent>(); //pillo IA propia
+        // le asignamos un material individual a cada enemigo
+        meshRenderer.material = new Material(meshRenderer.material);
+        originalColor = meshRenderer.material.color;
     }
 
     void Update()
@@ -68,12 +75,18 @@ public class Enemy_Control : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        StartCoroutine(FlashDamage());
         health -= damage;
-        print("HITED: " + health);
         if (health <= 0)
         {
             Destroy(gameObject);
         }
+    }
+    public IEnumerator FlashDamage()//lo llaman los enemigos al hitearme
+    {
+        meshRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(1f);
+        meshRenderer.material.color = originalColor;
     }
 }
 
