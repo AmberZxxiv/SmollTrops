@@ -9,6 +9,7 @@ TagManager:
   - closedspawn
   - enemy
   - power
+  - boss
   layers:
   - Default
   - TransparentFX

@@ -6,26 +6,34 @@ public class Room_Manager : MonoBehaviour
 {// script en el empty ROM_MAN del inspector
  // SINGLETON script
     public static Room_Manager instance;
- // SINGLETON script
+    // SINGLETON script
 
-    // Listas donde declaro las salas desde el _ROOM_MAN_ del inspector
+    #region /// ROOM MAN LIST ///
     public GameObject[] room1Z;
     public GameObject[] room1X;
     public GameObject[] room0z;
     public GameObject[] room0x;
     public GameObject closedRoom;
-    // lista control de las salas en el mapa
+    #endregion
+
+    #region /// MAP CONTROL ///
     public List<GameObject> roomMap;
     public int roomsSpawned = 0;
     public int maxRooms = 15;
     public NavMeshSurface surface;
-    // gestion de enemigos
+    #endregion
+
+    #region /// POW SPAWNER ///
+    public List<GameObject> powerHands;
+    public List<GameObject> powerSpawns;
+    #endregion
+
+    #region /// ENEMY SPAWNER ///
     public GameObject bossBall;
     public GameObject minionBall;
-    public int minionCount = 3;
-    // gestion de powers
-    public List<GameObject> powerHands;
-    public List<GameObject> powerSpawns; 
+    public int minionCount = 4;
+    #endregion
+
 
     void Awake()
     { // awake para instanciar singleton sin superponer varios

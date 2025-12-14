@@ -5,8 +5,9 @@ using UnityEngine.AI;
 
 public class Enemy_Control : MonoBehaviour
 {// script en cada enemigo
- //pillo SINGLE del PC
-   public Player_Control _PC; 
+ //pillo SINGLEs del PC y MC
+   public Player_Control _PC;
+   public Menus_Control _MC;
 
     private NavMeshAgent agent; //IA propia
     public Transform target; //objetivo al que ir
@@ -22,8 +23,9 @@ public class Enemy_Control : MonoBehaviour
 
     void Start()
     {
-        //pillo SINGLE del PC
-        _PC = Player_Control.instance; 
+        //pillo SINGLEs del PC y MC
+        _PC = Player_Control.instance;
+        _MC = Menus_Control.instance;
         target = _PC.transform; // le doy el transform del PC como target
         agent = GetComponent<NavMeshAgent>(); //pillo IA propia
         // le asignamos un material individual a cada enemigo
@@ -73,16 +75,20 @@ public class Enemy_Control : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage)//llamo desde las weapons para hitear enemys
     {
         StartCoroutine(FlashDamage());
         health -= damage;
         if (health <= 0)
         {
+            if (CompareTag("boss"))
+            {
+                _MC.ShowVictory();
+            }
             Destroy(gameObject);
         }
     }
-    public IEnumerator FlashDamage()//lo llaman los enemigos al hitearme
+    public IEnumerator FlashDamage()//efecto de daño al hitear enemys
     {
         meshRenderer.material.color = Color.red;
         yield return new WaitForSeconds(1f);

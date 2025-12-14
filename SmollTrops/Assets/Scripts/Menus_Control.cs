@@ -2,12 +2,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menus_Control : MonoBehaviour
-{ // esto está en el canvas de cada escena
+{ // script en el canvas de cada escena
+  // SINGLETON script
+    public static Menus_Control instance;
+  // SINGLETON script
+    public Player_Control _PC; //pillo SINGLE del PC
 
     public GameObject deadMenu;
     public GameObject pauseMenu;
     public GameObject victoryMenu;
-    public Player_Control _PC; //singleton del player
+
+    void Awake()
+    {// awake para instanciar singleton sin superponer varios
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -36,6 +45,12 @@ public class Menus_Control : MonoBehaviour
                 pauseMenu.SetActive(true);
             }
         }
+    }
+
+    public void ShowVictory() //lo llamo desde el TakeDamage del Enemy Boss
+    {
+        Time.timeScale = 0;
+        victoryMenu.SetActive(true);
     }
 
     public void QuitPause()
