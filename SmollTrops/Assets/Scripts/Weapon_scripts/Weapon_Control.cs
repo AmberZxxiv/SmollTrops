@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,9 +21,11 @@ public class Weapon_Control : MonoBehaviour
         Magic
     }
 
-    // las variables de momento estan en el propio codigo
+    // las variables estan los propios codigos
     public Transform attackOrigin;
     // prefabs de los lanzables
+    public GameObject kickPref;
+    public GameObject punchPref;
     public GameObject shotPref;
     public GameObject magicPref;
 
@@ -109,15 +112,16 @@ public class Weapon_Control : MonoBehaviour
         switch (weapon)
         {
         case WeaponType.None: return;
-        case WeaponType.Kick: DoKick(); break;
-        case WeaponType.Punch:DoPunch();break;
-        case WeaponType.Shot: DoShot(); break;
-        case WeaponType.Magic:DoMagic();break;
+        case WeaponType.Kick: DoKICK(); break;
+        case WeaponType.Punch:DoPUNCH();break;
+        case WeaponType.Shot: DoSHOT(); break;
+        case WeaponType.Magic:DoMAGIC();break;
         }
     }
 
-    void DoKick()
+    void DoKICK()
     {
+        print("KICKED!");
         // ray desde cam al plano del origen del ataque
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Vector3.up, new Vector3(0, attackOrigin.position.y, 0));
@@ -134,6 +138,11 @@ public class Weapon_Control : MonoBehaviour
         attackCenter.y = 0;
         // rotacion del box que apunte a dir
         Quaternion attackRot = Quaternion.LookRotation(dir, Vector3.up);
+
+        // instancio prefab para visualizar la zona
+        GameObject kickZone = Instantiate(kickPref, attackCenter, attackRot);
+        kickZone.transform.localScale = halfExtents * 2;
+        Destroy(kickZone, 0.5f);
         // guardo los datos para darselos al gizdraw
         gizToDraw = WeaponType.Kick;
         gizCenter = attackCenter;
@@ -146,7 +155,7 @@ public class Weapon_Control : MonoBehaviour
         {
             if (hit.CompareTag("enemy") || hit.CompareTag("boss"))
             {
-                print("KICKED!");
+                print("HITTED!");
                 //cojo los componentes del enemigo
                 NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
                 Enemy_Control enemy = hit.GetComponent<Enemy_Control>();
@@ -159,31 +168,37 @@ public class Weapon_Control : MonoBehaviour
 
                 // pegar
                 enemy.TakeDamage(2);
-                Vector3 kickDir = dir + Vector3.up * 0.5f;
+                Vector3 kickDir = dir + Vector3.up * 0.25f;
                 kickDir.Normalize();
                 rb.AddForce(kickDir * 7f, ForceMode.Impulse);
 
                 //reactivar IA
-                StartCoroutine(ReactivateAgent(agent, 0.7f));
+                StartCoroutine(ReactivateAgent(agent, 0.5f));
             }
         }
     }
 
-    void DoPunch()
+    void DoPUNCH()
     {
+        print("PUNCHED!");
         // solo necesito el centro debajo del player
         Vector3 attackCenter = attackOrigin.position;
+        attackCenter.y = 0;
+
+        // instancio prefab para visualizar la zona
+        GameObject punchZone = Instantiate(punchPref, attackCenter, Quaternion.identity);
+        Destroy(punchZone, 0.5f);
         // copio los datos para darselos al gizdraw
         gizToDraw = WeaponType.Punch;
         gizCenter = attackCenter;
 
         // genero el collider con todos los datos e impacto
-        Collider[] hits = Physics.OverlapSphere(attackCenter, 10f);
+        Collider[] hits = Physics.OverlapSphere(attackCenter, 7f);
         foreach (Collider hit in hits)
         {
             if (hit.CompareTag("enemy") || hit.CompareTag("boss"))
             {
-                print("PUNCHED!");
+                print("HITTED!");
                 //cojo los componentes del enemigo
                 NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
                 Enemy_Control enemy = hit.GetComponent<Enemy_Control>();
@@ -197,7 +212,7 @@ public class Weapon_Control : MonoBehaviour
                 // pegar
                 enemy.TakeDamage(2);
                 rb.AddForce(Vector3.up * 2f, ForceMode.Impulse);
-                rb.AddExplosionForce(5f, attackCenter, 5f, 5f, ForceMode.Impulse);
+                rb.AddExplosionForce(2f, attackCenter, 2f, 2f, ForceMode.Impulse);
 
                 //reactivar IA
                 StartCoroutine(ReactivateAgent(agent, 0.5f));
@@ -205,7 +220,7 @@ public class Weapon_Control : MonoBehaviour
         }
     }
 
-    void DoShot()
+    void DoSHOT()
     {
         print("SHOTED!");
         // ray desde cam al plano del origen del ataque
@@ -218,7 +233,7 @@ public class Weapon_Control : MonoBehaviour
         dir.y = 0; dir.Normalize();
 
         // instancio la bull shot ignorando al player
-        GameObject bullShot = Instantiate(shotPref, attackOrigin.position + dir * 1f, Quaternion.identity);
+        GameObject bullShot = Instantiate(shotPref, attackOrigin.position + dir * 1f, Quaternion.LookRotation(dir, Vector3.up) * shotPref.transform.rotation);
         Collider playerCollider = _PC.GetComponent<Collider>();
         Collider bulletCollider = bullShot.GetComponent<Collider>();
         Physics.IgnoreCollision(bulletCollider, playerCollider);
@@ -226,14 +241,34 @@ public class Weapon_Control : MonoBehaviour
         //configuro el ataque en el prefab
         Bull_Shoter bullet = bullShot.GetComponent<Bull_Shoter>();
         bullet.damage = 2f;
+        bullet.lifeTime = 1.5f;
         // le doy fuerza a la bala pa lanzarla
         Rigidbody rb = bullShot.GetComponent<Rigidbody>();
         rb.linearVelocity = dir * 50f;
     }
 
-    void DoMagic()
+    void DoMAGIC()
     {
-        print("MAGICED");
+        print("WIKED!");
+        // ray desde cam al plano del origen del ataque
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, new Vector3(0, attackOrigin.position.y, 0));
+        if (!plane.Raycast(ray, out float enter)) return;
+        // dirección desde origen hacia posición del ratón
+        Vector3 mouseWorld = ray.GetPoint(enter);
+        Vector3 dir = mouseWorld - attackOrigin.position;
+        dir.y = 0; dir.Normalize();
+
+        // instancio el spell del caster
+        GameObject spellCast = Instantiate(magicPref, attackOrigin.position + dir * 2f, Quaternion.LookRotation(dir, Vector3.up) * magicPref.transform.rotation);
+
+        //configuro el ataque en el prefab
+        Spell_Caster spell = spellCast.GetComponent<Spell_Caster>();
+        spell.damage = 2f;
+        spell.lifeTime = 1f;
+        // le doy fuerza a la bala pa lanzarla
+        Rigidbody rb = spellCast.GetComponent<Rigidbody>();
+        rb.linearVelocity = dir * 15f;
     }
 
     private void OnDrawGizmos()
@@ -252,7 +287,7 @@ public class Weapon_Control : MonoBehaviour
             case WeaponType.Punch:
         Gizmos.color = Color.red;
         Gizmos.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
-        Gizmos.DrawWireSphere(gizCenter, 10f);
+        Gizmos.DrawWireSphere(gizCenter, 7f);
             break;
         }
     }

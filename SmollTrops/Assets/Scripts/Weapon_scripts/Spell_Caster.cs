@@ -4,8 +4,8 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Bull_Shoter : MonoBehaviour
-{//script en cada prefab de Bullet SHOT
+public class Spell_Caster : MonoBehaviour
+{//script en cada prefab de Bullet MAGIC
 
     public float damage;
     public float lifeTime;
@@ -15,7 +15,7 @@ public class Bull_Shoter : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("enemy") || other.gameObject.CompareTag("boss"))
         {
@@ -36,9 +36,10 @@ public class Bull_Shoter : MonoBehaviour
 
             //reactivar IA
             StartCoroutine(ReactivateAgent(agent, 0.2f));
+            // tener referencia visual y tiempo para activar el agent
+            StartCoroutine(DestroyAfterDelay(0.5f));
         }
-        // tener referencia visual y tiempo para activar el agent
-        StartCoroutine(DestroyAfterDelay(0.3f));
+       
     }
     IEnumerator ReactivateAgent(NavMeshAgent agent, float delay)
     {
@@ -48,12 +49,6 @@ public class Bull_Shoter : MonoBehaviour
 
     IEnumerator DestroyAfterDelay(float delay)
     {
-        // desactivo el collider
-        Collider col = GetComponent<Collider>();
-        if (col != null) col.enabled = false;
-        // detengo el rb
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null) rb.linearVelocity = Vector3.zero;
         // espero y elimino
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);

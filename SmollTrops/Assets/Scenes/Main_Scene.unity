@@ -1072,7 +1072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3569438193100314968, guid: 6bd6dccf010cb094a9316aa57b140da4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4234194760237351906, guid: 6bd6dccf010cb094a9316aa57b140da4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2590,8 +2590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408a64cfffdc3df4c86f0c857b6b8d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _PC: {fileID: 0}
   weapon: 0
   attackOrigin: {fileID: 0}
+  kickPref: {fileID: 8175016819001832673, guid: c11003c6780610d4cb6c283715dc3ef7, type: 3}
+  punchPref: {fileID: 6665521685881295858, guid: 2d235c5b32f9a664ab02d5546158131a, type: 3}
   shotPref: {fileID: 277156950887219106, guid: bdd0ef7152a37f749a81a03e522b0593, type: 3}
   magicPref: {fileID: 4424006084866504917, guid: cfa706704071a4d46a378e08448a586f, type: 3}
   uiPower: {fileID: 246339424}
@@ -3141,7 +3144,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _WC: {fileID: 0}
   movSpeed: 6
-  sprintMulti: 2
+  dashForce: 12
+  dashTimer: 0.5
   startDungeon: {fileID: 2011392927775435435}
   health: 10
   spriteRenderer: {fileID: 1120234497}
@@ -3515,12 +3519,13 @@ MonoBehaviour:
   closedRoom: {fileID: 3577886435829724, guid: b368c1e162181a9429130bab8204d8ef, type: 3}
   roomMap: []
   roomsSpawned: 0
-  maxRooms: 15
+  maxRooms: 10
   surface: {fileID: 2141270859}
   powerHands:
   - {fileID: 3772858510270241939, guid: 125e2546eb55f60459aff7743298e755, type: 3}
   - {fileID: 8923536302046465794, guid: bb02f06ece1719b478f9fa5ba693a7ab, type: 3}
   - {fileID: 3772858510270241939, guid: f1249f5d81f31f6419163b223fcd9973, type: 3}
+  - {fileID: 3772858510270241939, guid: 4ed80336416e28e4abb1580cdd731fb0, type: 3}
   powerSpawns:
   - {fileID: 866208690}
   - {fileID: 137244445}
@@ -4205,7 +4210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3569438193100314968, guid: 6bd6dccf010cb094a9316aa57b140da4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4234194760237351906, guid: 6bd6dccf010cb094a9316aa57b140da4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4341,7 +4346,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1554161434091150360
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4567,7 +4572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _RM: {fileID: 0}
   direction: 3
-  spawnTime: 0
+  spawnTime: 0.1
   spawned: 0
 --- !u!1 &3727068222493868257
 GameObject:
@@ -4798,7 +4803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5138837483051370880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4921,7 +4926,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5566305264841395340
 Transform:
   m_ObjectHideFlags: 0
@@ -5100,7 +5105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _RM: {fileID: 0}
   direction: 2
-  spawnTime: 0
+  spawnTime: 0.1
   spawned: 0
 --- !u!4 &7411926920901564605
 Transform:

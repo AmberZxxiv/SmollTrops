@@ -69,14 +69,15 @@ public class Room_Manager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        //el Boss aparece en la ultima sala de la lista
+        //el Boss aparece en la ultima sala de la lista en su 00
         Instantiate(bossBall, roomMap[roomMap.Count-1].transform.position + Vector3.up * 5, transform.rotation);
 
-        // en todas menos la ultima, aparecen minions
-        float radio = 1.5f;
+        // en todas menos la ultima, aparecen minions en los spawners
+        float radio = 2f;
         for(int i = 0; i < roomMap.Count-1; i++)
         {
-           Vector3 center = roomMap[i].transform.position + Vector3.up * 2.5f;
+           Transform enemySpawn = roomMap[i].transform.Find("EnemySpawn");
+           Vector3 center = enemySpawn.position + Vector3.up * 0.5f;
             for (int m = 0; m < minionCount; m++)
             {
                float angle = (360f / minionCount) * m;
