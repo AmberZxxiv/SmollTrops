@@ -2593,6 +2593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PC: {fileID: 0}
   weapon: 0
+  playAnimator: {fileID: 0}
   attackOrigin: {fileID: 0}
   kickPref: {fileID: 8175016819001832673, guid: c11003c6780610d4cb6c283715dc3ef7, type: 3}
   punchPref: {fileID: 6665521685881295858, guid: 2d235c5b32f9a664ab02d5546158131a, type: 3}
@@ -3150,9 +3151,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1442705215
 MonoBehaviour:
   m_ObjectHideFlags: 0

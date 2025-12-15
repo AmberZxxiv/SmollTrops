@@ -177,7 +177,12 @@ MonoBehaviour:
   target: {fileID: 0}
   agroDistance: 20
   wanderRadius: 10
+  attackOrigin: {fileID: 0}
+  attackRange: 3
+  attackDamage: 2
+  attackForce: 5
   wanderDelay: 2
   wanderTimer: 2
+  attackCooldown: 1
   health: 6
   meshRenderer: {fileID: 245353165012248701}

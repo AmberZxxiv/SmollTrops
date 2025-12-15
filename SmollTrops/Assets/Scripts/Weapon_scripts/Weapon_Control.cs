@@ -22,7 +22,7 @@ public class Weapon_Control : MonoBehaviour
     }
 
     // las variables estan los propios codigos
-    Animator _animator;
+    public Animator playAnimator;
     public Transform attackOrigin;
 
     #region /// PROYECTIL ZONES ///
@@ -63,12 +63,10 @@ public class Weapon_Control : MonoBehaviour
         // pillo el singleton del Player
         _PC = Player_Control.instance;
         // pillo el animator controler propio
-        _animator = GetComponent<Animator>();
+        playAnimator = GetComponent<Animator>();
         // desde donde se van a generar los ataques
         if (attackOrigin == null)
-        {
-            attackOrigin = this.transform;
-        }
+        { attackOrigin = this.transform;}
     }
 
     void Update()
@@ -150,7 +148,7 @@ public class Weapon_Control : MonoBehaviour
         gizExtents = halfExtents;
 
         // triggereo la animacion
-        _animator.SetTrigger("isKicking");
+        playAnimator.SetTrigger("isKicking");
         // instancio prefab para visualizar la zona
         GameObject kickZone = Instantiate(kickPref, attackCenter, attackRot);
         kickZone.transform.localScale = halfExtents * 2;
@@ -168,7 +166,7 @@ public class Weapon_Control : MonoBehaviour
                 Enemy_Control enemy = hit.GetComponent<Enemy_Control>();
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
 
-                // reset físico
+                // reset físico para que les afecte el impulso
                 agent.enabled = false;
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
@@ -196,7 +194,7 @@ public class Weapon_Control : MonoBehaviour
         gizCenter = attackCenter;
 
         // triggereo la animacion
-        _animator.SetTrigger("isPunching");
+        playAnimator.SetTrigger("isPunching");
         // instancio prefab para visualizar la zona
         GameObject punchZone = Instantiate(punchPref, attackCenter, Quaternion.identity);
         Destroy(punchZone, 0.5f);
@@ -213,7 +211,7 @@ public class Weapon_Control : MonoBehaviour
                 Enemy_Control enemy = hit.GetComponent<Enemy_Control>();
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
 
-                // reset físico
+                // reset físico para que les afecte el impulso
                 agent.enabled = false;
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
@@ -242,7 +240,7 @@ public class Weapon_Control : MonoBehaviour
         dir.y = 0; dir.Normalize();
 
         // triggereo la animacion
-        _animator.SetTrigger("isShoting");
+        playAnimator.SetTrigger("isShoting");
         // instancio la bull shot ignorando al player
         GameObject bullShot = Instantiate(shotPref, attackOrigin.position + dir * 1f, Quaternion.LookRotation(dir, Vector3.up) * shotPref.transform.rotation);
         Collider playerCollider = _PC.GetComponent<Collider>();
@@ -270,7 +268,7 @@ public class Weapon_Control : MonoBehaviour
         dir.y = 0; dir.Normalize();
 
         // triggereo la animacion
-        _animator.SetTrigger("isCasting");
+        playAnimator.SetTrigger("isCasting");
         // instancio el spell del caster
         GameObject spellCast = Instantiate(magicPref, attackOrigin.position + dir * 2f, Quaternion.LookRotation(dir, Vector3.up) * magicPref.transform.rotation);
         //configuro el ataque en el prefab

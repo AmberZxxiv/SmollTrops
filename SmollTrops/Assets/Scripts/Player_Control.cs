@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Player_Control : MonoBehaviour
@@ -16,6 +17,7 @@ public class Player_Control : MonoBehaviour
     public float dashTimer;
     bool _canDash = true;
     bool _isDashing = false;
+    bool _isStunned = false;
     float _movLateral;
     float _movFrontal;
     #endregion
@@ -61,6 +63,7 @@ public class Player_Control : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_isStunned) return;
         if (!_isDashing)
         {
             // aqui damos los valores del movimiento
@@ -85,21 +88,15 @@ public class Player_Control : MonoBehaviour
         }
     }
 
-    public IEnumerator FlashDamage()//lo llaman los enemigos al hitearme
-    {
-        spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(1f);
-        spriteRenderer.color = _originalColor;
-    }
-
     private void DoDASH()
     {
+        // triggereo la animacion del weapon script
+        _WC.playAnimator.SetTrigger("isDashing");
         // impulso en la direccion del movimiento
         Vector3 dashDirection = (transform.right * _movLateral + transform.forward * _movFrontal).normalized;
         if (dashDirection == Vector3.zero)
-        { // sin dirección, dash hacia adelante
-            dashDirection = transform.forward; 
-
+        { // sin direcciï¿½n, dash hacia adelante
+            dashDirection = transform.forward;
         }
         _rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
 
@@ -108,10 +105,39 @@ public class Player_Control : MonoBehaviour
         _canDash = false;
         Invoke("ResetDash", dashTimer);
     }
-
     private void ResetDash()
     {
         _canDash = true;
         _isDashing = false;
+    }
+
+    public IEnumerator FlashDamage()//lo llaman los enemigos al hitearme
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(1f);
+        spriteRenderer.color = _originalColor;
+    }
+    public void ApplyKnockback(Vector3 direction, float force)
+    {
+        StopAllCoroutines();
+        StartCoroutine(KnockbackRoutine(direction, force));
+    }
+    IEnumerator KnockbackRoutine(Vector3 direction, float force)
+    {
+        _isStunned = true;
+
+        //guardo Y porque sino se rompe
+        float yVel = _rb.linearVelocity.y;
+        // limpiar movimiento horizontal
+        _rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0);
+
+        // limitar y estabilizar direcciï¿½n
+        direction.y = 0.1f; direction = math.normalize(direction);
+
+        _rb.AddForce(direction * force, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(0.25f);
+
+        _isStunned = false;
     }
 }
