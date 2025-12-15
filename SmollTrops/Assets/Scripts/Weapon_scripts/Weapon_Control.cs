@@ -22,12 +22,15 @@ public class Weapon_Control : MonoBehaviour
     }
 
     // las variables estan los propios codigos
+    Animator _animator;
     public Transform attackOrigin;
-    // prefabs de los lanzables
+
+    #region /// PROYECTIL ZONES ///
     public GameObject kickPref;
     public GameObject punchPref;
     public GameObject shotPref;
     public GameObject magicPref;
+    #endregion
 
     #region /// UI MARKERS ///
     public GameObject uiPower;
@@ -59,6 +62,8 @@ public class Weapon_Control : MonoBehaviour
     {
         // pillo el singleton del Player
         _PC = Player_Control.instance;
+        // pillo el animator controler propio
+        _animator = GetComponent<Animator>();
         // desde donde se van a generar los ataques
         if (attackOrigin == null)
         {
@@ -138,17 +143,19 @@ public class Weapon_Control : MonoBehaviour
         attackCenter.y = 0;
         // rotacion del box que apunte a dir
         Quaternion attackRot = Quaternion.LookRotation(dir, Vector3.up);
-
-        // instancio prefab para visualizar la zona
-        GameObject kickZone = Instantiate(kickPref, attackCenter, attackRot);
-        kickZone.transform.localScale = halfExtents * 2;
-        Destroy(kickZone, 0.5f);
         // guardo los datos para darselos al gizdraw
         gizToDraw = WeaponType.Kick;
         gizCenter = attackCenter;
         gizRot = attackRot;
         gizExtents = halfExtents;
 
+        // triggereo la animacion
+        _animator.SetTrigger("isKicking");
+        // instancio prefab para visualizar la zona
+        GameObject kickZone = Instantiate(kickPref, attackCenter, attackRot);
+        kickZone.transform.localScale = halfExtents * 2;
+        Destroy(kickZone, 0.5f);
+        
         // genero el collider con todos los datos e impacto
         Collider[] hits = Physics.OverlapBox(attackCenter, halfExtents, attackRot);
         foreach (Collider hit in hits)
@@ -184,14 +191,16 @@ public class Weapon_Control : MonoBehaviour
         // solo necesito el centro debajo del player
         Vector3 attackCenter = attackOrigin.position;
         attackCenter.y = 0;
-
-        // instancio prefab para visualizar la zona
-        GameObject punchZone = Instantiate(punchPref, attackCenter, Quaternion.identity);
-        Destroy(punchZone, 0.5f);
         // copio los datos para darselos al gizdraw
         gizToDraw = WeaponType.Punch;
         gizCenter = attackCenter;
 
+        // triggereo la animacion
+        _animator.SetTrigger("isPunching");
+        // instancio prefab para visualizar la zona
+        GameObject punchZone = Instantiate(punchPref, attackCenter, Quaternion.identity);
+        Destroy(punchZone, 0.5f);
+       
         // genero el collider con todos los datos e impacto
         Collider[] hits = Physics.OverlapSphere(attackCenter, 7f);
         foreach (Collider hit in hits)
@@ -232,12 +241,13 @@ public class Weapon_Control : MonoBehaviour
         Vector3 dir = mouseWorld - attackOrigin.position;
         dir.y = 0; dir.Normalize();
 
+        // triggereo la animacion
+        _animator.SetTrigger("isShoting");
         // instancio la bull shot ignorando al player
         GameObject bullShot = Instantiate(shotPref, attackOrigin.position + dir * 1f, Quaternion.LookRotation(dir, Vector3.up) * shotPref.transform.rotation);
         Collider playerCollider = _PC.GetComponent<Collider>();
         Collider bulletCollider = bullShot.GetComponent<Collider>();
         Physics.IgnoreCollision(bulletCollider, playerCollider);
-
         //configuro el ataque en el prefab
         Bull_Shoter bullet = bullShot.GetComponent<Bull_Shoter>();
         bullet.damage = 2f;
@@ -259,9 +269,10 @@ public class Weapon_Control : MonoBehaviour
         Vector3 dir = mouseWorld - attackOrigin.position;
         dir.y = 0; dir.Normalize();
 
+        // triggereo la animacion
+        _animator.SetTrigger("isCasting");
         // instancio el spell del caster
         GameObject spellCast = Instantiate(magicPref, attackOrigin.position + dir * 2f, Quaternion.LookRotation(dir, Vector3.up) * magicPref.transform.rotation);
-
         //configuro el ataque en el prefab
         Spell_Caster spell = spellCast.GetComponent<Spell_Caster>();
         spell.damage = 2f;
