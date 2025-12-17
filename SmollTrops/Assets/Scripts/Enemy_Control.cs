@@ -10,11 +10,11 @@ public class Enemy_Control : MonoBehaviour
    public Menus_Control _MC;
 
     #region /// MOVIMIENTO Y TRACKING ///
-    private NavMeshAgent agent; //IA propia
-    public Transform target; //objetivo al que ir
-    public float agroDistance; //agro 
-    private float targetDistance; //comprobacion
-    public float wanderRadius; //zona de patrulla
+    private NavMeshAgent agent;
+    public Transform target;
+    public float agroDistance;
+    private float targetDistance;
+    public float wanderRadius;
     #endregion
 
     #region /// ATTACK STATS ///
@@ -31,9 +31,12 @@ public class Enemy_Control : MonoBehaviour
     public float attackCooldown; //cada cuanto ataca
     #endregion
 
+    #region /// HEALTH STATUS ///
     public float health; // vida de cada enemigo
-    public MeshRenderer meshRenderer; //render del material
+    public MeshRenderer meshRenderer;
     private Color originalColor;
+    #endregion
+
 
     void Start()
     {
@@ -56,15 +59,10 @@ public class Enemy_Control : MonoBehaviour
         targetDistance = Vector3.Distance(agent.transform.position, target.position);
         // si esta a rango de ataque, ataco
         if (targetDistance <= attackRange && _canAttack)
-        {
-            agent.SetDestination(transform.position);
-            DoATTACK();
-        }
+        { DoATTACK();}
         // cuando pilla agro, va hacia el player
         if (targetDistance <= agroDistance)
-        {
-            agent.SetDestination(target.position);
-        }
+        { agent.SetDestination(target.position); }
         // si no, patrulla
         else Wander();
     }
@@ -82,34 +80,34 @@ public class Enemy_Control : MonoBehaviour
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
-    { //aquí genero un Vector3 dentro del radio del enemigo
+    { 
+        // genero Vector3 en el radio del enemigo y le devuelve un objetivo
         Vector3 randDirection = Random.insideUnitSphere * dist;
         randDirection += origin;
         NavMeshHit navHit;
         bool found = NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
-        if (!found) return origin;
-        else return navHit.position;
+        return !found ? origin : navHit.position;
     }
 
     void DoATTACK()
     {
         _canAttack = false;
+        // dirección desde enemigo a player
         Vector3 dir = target.position - attackOrigin.position;
         dir.y = 0; dir.Normalize();
-
+        // limites en anchura, altura, largura y centro
         Vector3 halfExtents = new Vector3(1f, 1f, attackRange);
         Vector3 center = attackOrigin.position + dir * attackRange;
-
+        // genero el collider y HITEO
         Collider[] hits = Physics.OverlapBox(center,halfExtents,Quaternion.LookRotation(dir));
-
         foreach (Collider hit in hits)
         {
             if (hit.CompareTag("Player"))
-            {
+            { // le hago cosas al PLAYER
                 _PC.health -= 2;
                 _PC.StartCoroutine(_PC.FlashDamage());
                 Vector3 hitDir = (_PC.transform.position - transform.position).normalized;
-                _PC.ApplyKnockback(hitDir, attackForce);
+                _PC.StartCoroutine(_PC.StunnKnockback(hitDir, attackForce));
                 StartCoroutine(AttackCooldown());
             }
         }
@@ -120,20 +118,18 @@ public class Enemy_Control : MonoBehaviour
         _canAttack = true;
     }
 
-    public void TakeDamage(float damage)//llamo desde las weapons para hitear enemys
+    public void TakeDamage(float damage)//llamo desde WEAPON para hitear enemys
     {
         StartCoroutine(FlashDamage());
         health -= damage;
         if (health <= 0)
         {
             if (CompareTag("boss"))
-            {
-                _MC.ShowVictory();
-            }
+            { _MC.ShowVictory(); }
             Destroy(gameObject);
         }
     }
-    public IEnumerator FlashDamage()//efecto de daño al hitear enemys
+    public IEnumerator FlashDamage()//propio del ENEMY
     {
         meshRenderer.material.color = Color.red;
         yield return new WaitForSeconds(1f);

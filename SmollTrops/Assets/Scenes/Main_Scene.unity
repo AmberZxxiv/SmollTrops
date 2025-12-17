@@ -590,6 +590,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3228663254703221987, guid: bbd5af6455a5ccb4bbd0ca5b969a6017, type: 3}
   m_PrefabInstance: {fileID: 262598596}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &345697881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 345697882}
+  m_Layer: 5
+  m_Name: HeartContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &345697882
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345697881}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 676321395}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -782, y: -362.5}
+  m_SizeDelta: {x: -1824, y: -985}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &419663177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,6 +1518,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 246339425}
+  - {fileID: 345697882}
   m_Father: {fileID: 1817314115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2595,6 +2631,12 @@ MonoBehaviour:
   weapon: 0
   playAnimator: {fileID: 0}
   attackOrigin: {fileID: 0}
+  test:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   kickPref: {fileID: 8175016819001832673, guid: c11003c6780610d4cb6c283715dc3ef7, type: 3}
   punchPref: {fileID: 6665521685881295858, guid: 2d235c5b32f9a664ab02d5546158131a, type: 3}
   shotPref: {fileID: 277156950887219106, guid: bdd0ef7152a37f749a81a03e522b0593, type: 3}
@@ -3135,7 +3177,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442705212}
   serializedVersion: 4
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3693,6 +3735,9 @@ MonoBehaviour:
   deadMenu: {fileID: 951824162}
   pauseMenu: {fileID: 1238022334}
   victoryMenu: {fileID: 2104520575}
+  heartPrefab: {fileID: 5544477635962534840, guid: 38f0452b8a071df449b39fa054fe910a, type: 3}
+  heartContainer: {fileID: 345697881}
+  heartRadio: 110
 --- !u!1001 &1820850540
 PrefabInstance:
   m_ObjectHideFlags: 0

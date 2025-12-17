@@ -21,9 +21,11 @@ public class Weapon_Control : MonoBehaviour
         Magic
     }
 
-    // las variables estan los propios codigos
+    // las variables estan en los propios codigos
     public Animator playAnimator;
     public Transform attackOrigin;
+
+    public AnimationCurve test;
 
     #region /// PROYECTIL ZONES ///
     public GameObject kickPref;
@@ -78,7 +80,7 @@ public class Weapon_Control : MonoBehaviour
         }
     }
 
-     public void EquipWeapon(WeaponType newWeapon)
+     public void EquipWeapon(WeaponType newWeapon) //lo llama el trigger del PLAYER
     { 
         // igualo mi weapon al del Pow_Giver
         weapon = newWeapon;
@@ -90,25 +92,17 @@ public class Weapon_Control : MonoBehaviour
         switch (newWeapon)
         {
            case WeaponType.None: return;
-           case WeaponType.Kick:
-                iconToInstantiate = kickPow;
-                break;
-           case WeaponType.Punch:
-                iconToInstantiate = punchPow;
-                break;
-           case WeaponType.Shot:
-                iconToInstantiate = shotPow;
-                break;
-           case WeaponType.Magic:
-                iconToInstantiate = magicPow;
-                break;
+           case WeaponType.Kick:iconToInstantiate = kickPow; break;
+           case WeaponType.Punch: iconToInstantiate = punchPow; break;
+           case WeaponType.Shot: iconToInstantiate = shotPow; break;
+           case WeaponType.Magic: iconToInstantiate = magicPow; break;
         }
         Instantiate(iconToInstantiate, uiPower.transform);
     }
 
     void AttackFunction()
     {
-        // controlo el cooldown (no funciona del todo bien?)
+        // compruebo el tiempo del cooldown
         if (Time.time < lastAttackTimer + attackCooldown) return;
         lastAttackTimer = Time.time;
         // activo el ataque correspondiente al weapon equipado
@@ -153,7 +147,6 @@ public class Weapon_Control : MonoBehaviour
         GameObject kickZone = Instantiate(kickPref, attackCenter, attackRot);
         kickZone.transform.localScale = halfExtents * 2;
         Destroy(kickZone, 0.5f);
-        
         // genero el collider con todos los datos e impacto
         Collider[] hits = Physics.OverlapBox(attackCenter, halfExtents, attackRot);
         foreach (Collider hit in hits)
@@ -165,18 +158,15 @@ public class Weapon_Control : MonoBehaviour
                 NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
                 Enemy_Control enemy = hit.GetComponent<Enemy_Control>();
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
-
                 // reset físico para que les afecte el impulso
                 agent.enabled = false;
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
-
-                // pegar
+                // HITEO
                 enemy.TakeDamage(2);
                 Vector3 kickDir = dir + Vector3.up * 0.25f;
                 kickDir.Normalize();
                 rb.AddForce(kickDir * 7f, ForceMode.Impulse);
-
                 //reactivar IA
                 StartCoroutine(ReactivateAgent(agent, 0.5f));
             }
@@ -198,7 +188,6 @@ public class Weapon_Control : MonoBehaviour
         // instancio prefab para visualizar la zona
         GameObject punchZone = Instantiate(punchPref, attackCenter, Quaternion.identity);
         Destroy(punchZone, 0.5f);
-       
         // genero el collider con todos los datos e impacto
         Collider[] hits = Physics.OverlapSphere(attackCenter, 7f);
         foreach (Collider hit in hits)
@@ -210,17 +199,14 @@ public class Weapon_Control : MonoBehaviour
                 NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
                 Enemy_Control enemy = hit.GetComponent<Enemy_Control>();
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
-
                 // reset físico para que les afecte el impulso
                 agent.enabled = false;
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
-
-                // pegar
+                // HITEO
                 enemy.TakeDamage(2);
                 rb.AddForce(Vector3.up * 2f, ForceMode.Impulse);
                 rb.AddExplosionForce(2f, attackCenter, 2f, 2f, ForceMode.Impulse);
-
                 //reactivar IA
                 StartCoroutine(ReactivateAgent(agent, 0.5f));
             }
@@ -246,7 +232,7 @@ public class Weapon_Control : MonoBehaviour
         Collider playerCollider = _PC.GetComponent<Collider>();
         Collider bulletCollider = bullShot.GetComponent<Collider>();
         Physics.IgnoreCollision(bulletCollider, playerCollider);
-        //configuro el ataque en el prefab
+        //configuro el ataque en PREFAB
         Bull_Shoter bullet = bullShot.GetComponent<Bull_Shoter>();
         bullet.damage = 2f;
         bullet.lifeTime = 1.5f;
@@ -271,7 +257,7 @@ public class Weapon_Control : MonoBehaviour
         playAnimator.SetTrigger("isCasting");
         // instancio el spell del caster
         GameObject spellCast = Instantiate(magicPref, attackOrigin.position + dir * 2f, Quaternion.LookRotation(dir, Vector3.up) * magicPref.transform.rotation);
-        //configuro el ataque en el prefab
+        //configuro el ataque en PREFAB
         Spell_Caster spell = spellCast.GetComponent<Spell_Caster>();
         spell.damage = 2f;
         spell.lifeTime = 1f;
@@ -280,7 +266,7 @@ public class Weapon_Control : MonoBehaviour
         rb.linearVelocity = dir * 15f;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos() // pa ver referencia mele en visor
     {
         if (attackOrigin == null) return;
         switch (gizToDraw)
@@ -302,7 +288,7 @@ public class Weapon_Control : MonoBehaviour
     }
 
     IEnumerator ReactivateAgent(NavMeshAgent agent, float delay)
-    {
+    { // pa reactivar la IA tras el hit
         yield return new WaitForSeconds(delay);
         agent.enabled = true;
     }

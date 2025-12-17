@@ -25,8 +25,8 @@ public class Player_Control : MonoBehaviour
     public GameObject startDungeon;//tp a la sala principal
 
     #region /// HEALTH STATUS ///
-    public float health; //vida del player
-    public SpriteRenderer spriteRenderer; //render del sprite
+    public float health;
+    public SpriteRenderer spriteRenderer;
     Color _originalColor;
     #endregion
 
@@ -49,22 +49,18 @@ public class Player_Control : MonoBehaviour
         // aqui cogemos los controles del movimiento
         _movLateral = Input.GetAxis("Horizontal");
         _movFrontal = Input.GetAxis("Vertical");
-        // y rotamos el sprite dependiendo de la direccion
+        // rotamos el player dependiendo de la direccion
         if (_movLateral != 0 )
-        {
-        transform.localScale = new Vector3(_movLateral > 0 ? -1 : 1, 1, 1);
-        }
-        // controlamos la habilidad del dash
+        { transform.localScale = new Vector3(_movLateral > 0 ? -1 : 1, 1, 1); }
+        // control del DASH
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canDash)
-        {
-            DoDASH();
-        }
+        { DoDASH(); }
     }
 
     private void FixedUpdate()
     {
-        if (_isStunned) return;
-        if (!_isDashing)
+        if (_isStunned) return; // si me limpian el movimiento no hago nada
+        if (!_isDashing) // cuando dasheo no controlo el movimiento
         {
             // aqui damos los valores del movimiento
             Vector3 playerMovement = (transform.right * _movLateral + transform.forward * _movFrontal);
@@ -75,15 +71,15 @@ public class Player_Control : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("portal"))
+        if (other.CompareTag("portal")) //tp a la sala inicial
         {
             transform.position = startDungeon.transform.position;
         }
 
         Power_Giver power = other.GetComponent<Power_Giver>();
-        if (power != null)
+        if (power != null) //si es un PowUp, lo cojo y quito el que tenía
         {
-            _WC.EquipWeapon(power.newWeapon);
+            _WC.EquipWeapon(power.newWeapon); //equipo en la weapon
             Destroy(other.gameObject);
         }
     }
@@ -95,7 +91,7 @@ public class Player_Control : MonoBehaviour
         // impulso en la direccion del movimiento
         Vector3 dashDirection = (transform.right * _movLateral + transform.forward * _movFrontal).normalized;
         if (dashDirection == Vector3.zero)
-        { // sin direcci�n, dash hacia adelante
+        { // sin direccion, dash hacia adelante
             dashDirection = transform.forward;
         }
         _rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
@@ -111,33 +107,18 @@ public class Player_Control : MonoBehaviour
         _isDashing = false;
     }
 
-    public IEnumerator FlashDamage()//lo llaman los enemigos al hitearme
+    public IEnumerator FlashDamage()//del enemy al hitearme
     {
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         spriteRenderer.color = _originalColor;
     }
-    public void ApplyKnockback(Vector3 direction, float force)
+    public IEnumerator StunnKnockback(Vector3 direction, float force) //del enemy al hitearme
     {
-        StopAllCoroutines();
-        StartCoroutine(KnockbackRoutine(direction, force));
-    }
-    IEnumerator KnockbackRoutine(Vector3 direction, float force)
-    {
-        _isStunned = true;
-
-        //guardo Y porque sino se rompe
-        float yVel = _rb.linearVelocity.y;
-        // limpiar movimiento horizontal
-        _rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0);
-
-        // limitar y estabilizar direcci�n
-        direction.y = 0.1f; direction = math.normalize(direction);
-
+        _isStunned = true; //bloqueo el fixed movement
+        _rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0); // limpio fisics del rb
         _rb.AddForce(direction * force, ForceMode.Impulse);
-
-        yield return new WaitForSeconds(0.25f);
-
+        yield return new WaitForSeconds(0.1f);
         _isStunned = false;
     }
 }

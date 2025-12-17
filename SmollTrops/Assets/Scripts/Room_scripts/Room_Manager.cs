@@ -18,8 +18,8 @@ public class Room_Manager : MonoBehaviour
 
     #region /// MAP CONTROL ///
     public List<GameObject> roomMap;
-    public int roomsSpawned = 0;
-    public int maxRooms = 15;
+    public int roomsSpawned;
+    public int maxRooms;
     public NavMeshSurface surface;
     #endregion
 
@@ -31,7 +31,7 @@ public class Room_Manager : MonoBehaviour
     #region /// ENEMY SPAWNER ///
     public GameObject bossBall;
     public GameObject minionBall;
-    public int minionCount = 4;
+    public int minionCount;
     #endregion
 
 
@@ -62,10 +62,8 @@ public class Room_Manager : MonoBehaviour
         }
     }
 
-    void BakeNavMesh()//bakea el NavMeshSurface de la escena cuando esta completa
-    { 
-        surface.BuildNavMesh(); 
-    }
+    void BakeNavMesh() //bakea NavMeshSurface de la escena cuando esta completa
+    { surface.BuildNavMesh(); }
 
     void SpawnEnemy()
     {

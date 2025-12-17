@@ -180,7 +180,7 @@ MonoBehaviour:
   attackOrigin: {fileID: 0}
   attackRange: 3
   attackDamage: 2
-  attackForce: 5
+  attackForce: 20
   wanderDelay: 2
   wanderTimer: 2
   attackCooldown: 1

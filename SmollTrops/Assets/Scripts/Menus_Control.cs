@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,10 @@ public class Menus_Control : MonoBehaviour
     public GameObject deadMenu;
     public GameObject pauseMenu;
     public GameObject victoryMenu;
+    public List<GameObject> actualLives = new List<GameObject>();
+    public GameObject heartPrefab;
+    public GameObject heartContainer;
+    public float heartRadio;
 
     void Awake()
     {// awake para instanciar singleton sin superponer varios
@@ -23,6 +28,7 @@ public class Menus_Control : MonoBehaviour
         // pillo el singleton del Player
         _PC = Player_Control.instance;
         Time.timeScale = 1;
+        LiveContainer();
     }
 
     void Update()
@@ -44,6 +50,20 @@ public class Menus_Control : MonoBehaviour
                 Time.timeScale = 0;
                 pauseMenu.SetActive(true);
             }
+        }
+    }
+
+    void LiveContainer()
+    {
+        for (int i = 0; i < (_PC.health*0.5f); i++)
+        { // instancio corazones en circulo
+            GameObject heart = Instantiate(heartPrefab, heartContainer.transform);
+            RectTransform rt = heart.GetComponent<RectTransform>();
+            float angulo = (360f / (_PC.health * 0.5f)) * i;
+            float rad = angulo * Mathf.Deg2Rad;
+            float x = Mathf.Cos(rad) * heartRadio;
+            float y = Mathf.Sin(rad) * heartRadio;
+            rt.anchoredPosition = new Vector2(x, y);
         }
     }
 
