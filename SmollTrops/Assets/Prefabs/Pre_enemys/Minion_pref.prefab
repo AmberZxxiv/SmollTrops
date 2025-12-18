@@ -179,10 +179,12 @@ MonoBehaviour:
   wanderRadius: 10
   attackOrigin: {fileID: 0}
   attackRange: 3
-  attackDamage: 2
+  attackDamage: 1
   attackForce: 20
   wanderDelay: 2
   wanderTimer: 2
   attackCooldown: 1
   health: 6
   meshRenderer: {fileID: 245353165012248701}
+  healCherry: {fileID: 3576113440945831091, guid: 44d2a430757407041a5966f1dd7a4e64, type: 3}
+  dropChance: 0.25

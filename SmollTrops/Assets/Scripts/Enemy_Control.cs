@@ -34,7 +34,9 @@ public class Enemy_Control : MonoBehaviour
     #region /// HEALTH STATUS ///
     public float health; // vida de cada enemigo
     public MeshRenderer meshRenderer;
-    private Color originalColor;
+    Color originalColor;
+    public GameObject healCherry;
+    public float dropChance;
     #endregion
 
 
@@ -103,18 +105,18 @@ public class Enemy_Control : MonoBehaviour
         foreach (Collider hit in hits)
         {
             if (hit.CompareTag("Player"))
-            { // le hago cosas al PLAYER
-                _PC.health -= 2;
+            { // le hago cosas al PLAYER y al LiveContainer
+                _PC.health -= attackDamage;
+                _MC.UpdateLives();
                 _PC.StartCoroutine(_PC.FlashDamage());
                 Vector3 hitDir = (_PC.transform.position - transform.position).normalized;
                 _PC.StartCoroutine(_PC.StunnKnockback(hitDir, attackForce));
-                StartCoroutine(AttackCooldown());
+                Invoke("resetATTACK", attackCooldown);
             }
         }
     }
-    IEnumerator AttackCooldown()
+    void resetATTACK()
     {
-        yield return new WaitForSeconds(attackCooldown);
         _canAttack = true;
     }
 
@@ -126,6 +128,10 @@ public class Enemy_Control : MonoBehaviour
         {
             if (CompareTag("boss"))
             { _MC.ShowVictory(); }
+            if (Random.value <= dropChance)
+            {
+                Instantiate(healCherry, transform.position + Vector3.up * 2, transform.rotation);
+            }
             Destroy(gameObject);
         }
     }

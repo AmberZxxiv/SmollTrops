@@ -8,13 +8,14 @@ public class Player_Control : MonoBehaviour
  // SINGLETON script
     public static Player_Control instance;
  // SINGLETON script
-    public Weapon_Control _WC; //pillo SINGLE del WC
+    public Weapon_Control _WC; //pillo SINGLE del MC
+    public Menus_Control _MC; //pillo SINGLE del WC
 
     #region /// PLAYER MOVEMENT ///
     Rigidbody _rb;
     public float movSpeed;
     public float dashForce;
-    public float dashTimer;
+    public float dashCooldown;
     bool _canDash = true;
     bool _isDashing = false;
     bool _isStunned = false;
@@ -40,6 +41,7 @@ public class Player_Control : MonoBehaviour
     void Start()
     {
         _WC = Weapon_Control.instance; //pillo SINGLE del WC
+        _MC = Menus_Control.instance; //pillo SINGLE del MC
         _rb = GetComponent<Rigidbody>();
         _originalColor = spriteRenderer.color;
     }
@@ -82,6 +84,13 @@ public class Player_Control : MonoBehaviour
             _WC.EquipWeapon(power.newWeapon); //equipo en la weapon
             Destroy(other.gameObject);
         }
+
+        if (other.CompareTag("heal") && health != 10) // pillo heal si no estoy a tope
+        {
+            health += 1;
+            _MC.UpdateLives();
+            Destroy(other.gameObject);
+        }
     }
 
     private void DoDASH()
@@ -99,9 +108,9 @@ public class Player_Control : MonoBehaviour
         // activamos cooldown
         _isDashing = true;
         _canDash = false;
-        Invoke("ResetDash", dashTimer);
+        Invoke("ResetDASH", dashCooldown);
     }
-    private void ResetDash()
+    void ResetDASH()
     {
         _canDash = true;
         _isDashing = false;

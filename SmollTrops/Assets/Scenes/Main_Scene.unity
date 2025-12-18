@@ -3209,9 +3209,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _WC: {fileID: 0}
+  _MC: {fileID: 0}
   movSpeed: 6
   dashForce: 12
-  dashTimer: 0.5
+  dashCooldown: 0.35
   startDungeon: {fileID: 2011392927775435435}
   health: 10
   spriteRenderer: {fileID: 1120234497}
@@ -3735,6 +3736,7 @@ MonoBehaviour:
   deadMenu: {fileID: 951824162}
   pauseMenu: {fileID: 1238022334}
   victoryMenu: {fileID: 2104520575}
+  actualLives: []
   heartPrefab: {fileID: 5544477635962534840, guid: 38f0452b8a071df449b39fa054fe910a, type: 3}
   heartContainer: {fileID: 345697881}
   heartRadio: 110

@@ -10,6 +10,7 @@ TagManager:
   - enemy
   - power
   - boss
+  - heal
   layers:
   - Default
   - TransparentFX

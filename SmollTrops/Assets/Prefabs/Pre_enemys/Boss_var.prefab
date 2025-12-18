@@ -21,23 +21,11 @@ PrefabInstance:
       value: boss
       objectReference: {fileID: 0}
     - target: {fileID: 5690484243768222843, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
-      propertyPath: health
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5690484243768222843, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
-      propertyPath: attackForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5690484243768222843, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
       propertyPath: attackRange
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5690484243768222843, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
       propertyPath: attackDamage
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5690484243768222843, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
-      propertyPath: attackCooldown
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8117176397809684566, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}

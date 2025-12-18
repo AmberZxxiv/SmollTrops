@@ -12,7 +12,7 @@ public class Menus_Control : MonoBehaviour
     public GameObject deadMenu;
     public GameObject pauseMenu;
     public GameObject victoryMenu;
-    public List<GameObject> actualLives = new List<GameObject>();
+    public List<Hearts_Eater> actualLives = new List<Hearts_Eater>();
     public GameObject heartPrefab;
     public GameObject heartContainer;
     public float heartRadio;
@@ -64,6 +64,30 @@ public class Menus_Control : MonoBehaviour
             float x = Mathf.Cos(rad) * heartRadio;
             float y = Mathf.Sin(rad) * heartRadio;
             rt.anchoredPosition = new Vector2(x, y);
+            actualLives.Add(heart.GetComponent<Hearts_Eater>());
+        }
+        UpdateLives();
+    }
+    public void UpdateLives()
+    {
+        float remaining = _PC.health;
+
+        foreach (Hearts_Eater cupcake in actualLives)
+        {
+            if (remaining >= 2)
+            {
+                cupcake.EatHeart(2);
+                remaining -= 2;
+            }
+            else if (remaining == 1)
+            {
+                cupcake.EatHeart(1);
+                remaining -= 1;
+            }
+            else
+            {
+                cupcake.EatHeart(0);
+            }
         }
     }
 
