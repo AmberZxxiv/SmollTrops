@@ -9,14 +9,16 @@ TagManager:
   - closedspawn
   - enemy
   - power
+  - boss
+  - heal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - playerLayer
   - Water
   - UI
-  - 
+  - enemyLayer
   - 
   - 
   - 

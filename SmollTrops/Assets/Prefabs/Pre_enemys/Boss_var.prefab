@@ -16,9 +16,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_var
       objectReference: {fileID: 0}
+    - target: {fileID: 5334635643054048245, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
+      propertyPath: m_TagString
+      value: boss
+      objectReference: {fileID: 0}
     - target: {fileID: 5690484243768222843, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
-      propertyPath: health
-      value: 12
+      propertyPath: attackRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690484243768222843, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
+      propertyPath: attackDamage
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8117176397809684566, guid: bc9c3e7dfb41dcb488e566d7821bf2e7, type: 3}
       propertyPath: m_LocalScale.x

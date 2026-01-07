@@ -64,10 +64,7 @@ public class Room_Spawner : MonoBehaviour
             roomToSpawn = _RM.closedRoom;
             roomPos = Vector3.up *5;
         }
-        else
-        {// de base, sumo las salas spawneadas
-            _RM.roomsSpawned++;
-        }
+        else { _RM.roomsSpawned++; } // de base, sumo las salas spawneadas
         // instancio la selección y apago el spawn
         Instantiate(roomToSpawn, transform.position + roomPos, transform.rotation);
         spawned = true;
@@ -79,9 +76,7 @@ public class Room_Spawner : MonoBehaviour
         { // pillo el script del trigger
             Room_Spawner otherSpawner = other.GetComponent<Room_Spawner>();
             if (otherSpawner == null)
-            {// si no encuentra el componente, se sale
-                return;
-            }
+            { return; } // si no encuentra el componente, se sale
             if (spawned==false && otherSpawner.spawned==false)
             {// si dos spawnrooms chocan, se cierra el pasillo y se elimina el spawn
                 Instantiate(_RM.closedRoom, transform.position + Vector3.up * 5, transform.rotation);
