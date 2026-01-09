@@ -6,37 +6,39 @@ public class Room_Manager : MonoBehaviour
 {// script en el empty ROM_MAN del inspector
  // SINGLETON script
     public static Room_Manager instance;
- // SINGLETON script
+    // SINGLETON script
 
-    // Listas donde declaro las salas desde el _ROOM_MAN_ del inspector
+    #region /// ROOM MAN LIST ///
     public GameObject[] room1Z;
     public GameObject[] room1X;
     public GameObject[] room0z;
     public GameObject[] room0x;
     public GameObject closedRoom;
-    // lista control de las salas en el mapa
+    #endregion
+
+    #region /// MAP CONTROL ///
     public List<GameObject> roomMap;
-    public int roomsSpawned = 0;
-    public int maxRooms = 15;
+    public int roomsSpawned;
+    public int maxRooms;
     public NavMeshSurface surface;
-    // gestion de enemigos
+    #endregion
+
+    #region /// POW SPAWNER ///
+    public List<GameObject> powerHands;
+    public List<GameObject> powerSpawns;
+    #endregion
+
+    #region /// ENEMY SPAWNER ///
     public GameObject bossBall;
     public GameObject minionBall;
-    public int minionCount = 3;
-    // gestion de powers
-    public List<GameObject> powerHands;
-    public List<GameObject> powerSpawns; 
+    public int minionCount;
+    #endregion
+
 
     void Awake()
     { // awake para instanciar singleton sin superponer varios
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
     }
 
     private void Start()
@@ -60,21 +62,20 @@ public class Room_Manager : MonoBehaviour
         }
     }
 
-    void BakeNavMesh()//bakea el NavMeshSurface de la escena cuando esta completa
-    { 
-        surface.BuildNavMesh(); 
-    }
+    void BakeNavMesh() //bakea NavMeshSurface de la escena cuando esta completa
+    { surface.BuildNavMesh(); }
 
     void SpawnEnemy()
     {
-        //el Boss aparece en la ultima sala de la lista
+        //el Boss aparece en la ultima sala de la lista en su 00
         Instantiate(bossBall, roomMap[roomMap.Count-1].transform.position + Vector3.up * 5, transform.rotation);
 
-        // en todas menos la ultima, aparecen minions
-        float radio = 1.5f;
+        // en todas menos la ultima, aparecen minions en los spawners
+        float radio = 2f;
         for(int i = 0; i < roomMap.Count-1; i++)
         {
-           Vector3 center = roomMap[i].transform.position + Vector3.up * 2.5f;
+           Transform enemySpawn = roomMap[i].transform.Find("EnemySpawn");
+           Vector3 center = enemySpawn.position + Vector3.up * 0.5f;
             for (int m = 0; m < minionCount; m++)
             {
                float angle = (360f / minionCount) * m;
