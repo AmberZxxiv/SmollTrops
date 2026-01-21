@@ -3210,8 +3210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _WC: {fileID: 0}
   _MC: {fileID: 0}
-  movSpeed: 6
-  dashForce: 12
+  movSpeed: 10
+  dashForce: 15
   dashCooldown: 0.35
   startDungeon: {fileID: 2011392927775435435}
   health: 10
